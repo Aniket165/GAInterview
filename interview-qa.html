@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Analytics — Interview Questions & Answers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0B0F1A;
+    --surface: #131929;
+    --surface2: #1A2136;
+    --border: #252D44;
+    --text: #E2E8F0;
+    --text-dim: #8892A8;
+    --easy: #34A853;
+    --medium: #F5A623;
+    --hard: #FA0F00;
+    --expert: #A78BFA;
+    --accent-adobe: #FF4D42;
+    --accent-google: #669DF6;
+    --accent-gcp: #34A853;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .hero {
+    padding: 50px 24px 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--medium);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff 40%, var(--medium));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p { color: var(--text-dim); max-width: 600px; margin: 0 auto; }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-easy { background: var(--easy); }
+  .dot-med { background: var(--medium); }
+  .dot-hard { background: var(--hard); }
+  .dot-exp { background: var(--expert); }
+
+  /* NAV */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 15, 26, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    overflow-x: auto;
+  }
+
+  .toc-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .toc a {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .toc a:hover { background: var(--surface2); color: var(--text); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  .section {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header { margin-bottom: 28px; }
+
+  .section-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+
+  .tag-adobe { background: rgba(250,15,0,0.15); color: var(--accent-adobe); }
+  .tag-google { background: rgba(66,133,244,0.15); color: var(--accent-google); }
+  .tag-gcp { background: rgba(52,168,83,0.15); color: var(--accent-gcp); }
+  .tag-scenario { background: rgba(167,139,250,0.15); color: var(--expert); }
+
+  .section-header h2 { font-size: clamp(22px, 4vw, 28px); font-weight: 800; margin-bottom: 6px; }
+  .section-header p { color: var(--text-dim); }
+
+  /* QA CARDS */
+  .qa {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .qa-header {
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    user-select: none;
+  }
+
+  .qa-header:hover { background: var(--surface2); }
+
+  .qa-diff {
+    flex-shrink: 0;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .diff-easy { background: rgba(52,168,83,0.15); color: var(--easy); }
+  .diff-medium { background: rgba(245,166,35,0.15); color: var(--medium); }
+  .diff-hard { background: rgba(250,15,0,0.15); color: var(--hard); }
+  .diff-expert { background: rgba(167,139,250,0.15); color: var(--expert); }
+
+  .qa-q {
+    flex: 1;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .qa-toggle {
+    flex-shrink: 0;
+    color: var(--text-dim);
+    font-size: 18px;
+    transition: transform 0.2s;
+    margin-top: 2px;
+  }
+
+  .qa.open .qa-toggle { transform: rotate(45deg); }
+
+  .qa-answer {
+    display: none;
+    padding: 0 22px 20px 22px;
+    padding-left: 90px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .qa.open .qa-answer { display: block; }
+
+  .qa-answer p { margin-bottom: 10px; }
+  .qa-answer ul, .qa-answer ol { padding-left: 20px; margin: 8px 0; }
+  .qa-answer li { margin-bottom: 4px; }
+
+  .qa-answer code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface2);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--medium);
+  }
+
+  .qa-answer pre {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    overflow-x: auto;
+    margin: 10px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .qa-answer .tip {
+    background: rgba(167,139,250,0.08);
+    border-left: 3px solid var(--expert);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .qa-answer .tip strong { color: var(--expert); }
+
+  .expand-all {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .expand-all:hover { background: var(--border); color: var(--text); }
+
+  .counter {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  @media (max-width: 600px) {
+    .qa-answer { padding-left: 22px; }
+    .stats-row { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Interview Preparation — 2026</div>
+  <h1>150+ Interview Questions<br>& Model Answers</h1>
+  <p>Covering Adobe Analytics, Target, RTCDP, GA4, GTM, Looker Studio & GCP — calibrated for India's digital analytics job market.</p>
+  <div class="stats-row">
+    <div class="stat-pill"><span class="dot dot-easy"></span> Easy</div>
+    <div class="stat-pill"><span class="dot dot-med"></span> Medium</div>
+    <div class="stat-pill"><span class="dot dot-hard"></span> Hard</div>
+    <div class="stat-pill"><span class="dot dot-exp"></span> Expert / Scenario</div>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#sec-aa">Adobe Analytics</a>
+    <a href="#sec-at">Adobe Target</a>
+    <a href="#sec-rtcdp">RTCDP</a>
+    <a href="#sec-ga4">GA4</a>
+    <a href="#sec-gtm">GTM</a>
+    <a href="#sec-looker">Looker Studio</a>
+    <a href="#sec-gcp">GCP / BigQuery</a>
+    <a href="#sec-scenario">Scenario-Based</a>
+    <a href="#sec-behavioral">Behavioral / Consulting</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ========================= ADOBE ANALYTICS ========================= -->
+  <div class="section" id="sec-aa">
+    <div class="section-header">
+      <span class="section-tag tag-adobe">Adobe Analytics</span>
+      <h2>Adobe Analytics — 25 Questions</h2>
+      <p>From fundamental concepts to advanced implementation and analysis.</p>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-easy">Easy</span>
+        <span class="qa-q">1. What is Adobe Analytics and how does it differ from Google Analytics?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Adobe Analytics is an enterprise-level digital analytics platform under the Adobe Experience Cloud. Key differences from Google Analytics:</p>
+        <ul>
+          <li><strong>Customization depth:</strong> AA offers 250 eVars, 75 props, and 1000 events — far more custom variables than GA4's 50 custom dimensions. It's designed for complex, large-scale implementations.</li>
+          <li><strong>Processing architecture:</strong> AA uses server-side processing rules, VISTA rules, and classification imports. GA4 primarily processes data via its event model with less server-side flexibility.</li>
+          <li><strong>Analysis Workspace vs Explorations:</strong> Workspace is more mature — supports unlimited breakdowns, more visualization types, and advanced segment logic.</li>
+          <li><strong>Attribution:</strong> AA has Attribution IQ built into every metric in Workspace. GA4 offers limited attribution (data-driven + last-click only in most reports).</li>
+          <li><strong>Cost:</strong> AA is expensive (₹20L–₹1Cr+/year). GA4 standard is free. This means AA clients tend to be large enterprises.</li>
+          <li><strong>Ecosystem:</strong> AA integrates natively with Target, RTCDP, Campaign, etc. GA4 integrates with Google Ads, BigQuery, Looker Studio.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-easy">Easy</span>
+        <span class="qa-q">2. What is a Report Suite in Adobe Analytics?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>A Report Suite is the fundamental data container in Adobe Analytics — it's where all collected data for a site or app is stored and reported. Think of it as equivalent to a GA4 Property. Each Report Suite has a unique ID (RSID) like <code>mycompanyprod</code>.</p>
+        <p>Types of report suites: <strong>Global Report Suite</strong> (all data from all sites in one place) vs <strong>Individual Report Suites</strong> (one per site/region). Best practice is a global suite + individual suites using multi-suite tagging — the same hit goes to both, giving you a holistic view plus site-specific views.</p>
+        <p>Configuration includes timezone, currency, base URL, traffic and conversion variables, processing rules, and marketing channel rules — all set per report suite.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-easy">Easy</span>
+        <span class="qa-q">3. Explain the difference between Props and eVars.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>This is the most commonly asked Adobe Analytics question in India. Know it cold.</p>
+        <ul>
+          <li><strong>Props (Traffic Variables, s.prop1–s.prop75):</strong> No persistence — they exist only for the hit (server call) they're set on. Used for traffic-based reporting like pathing (entry page → next page). Cannot be tied to conversion events across hits.</li>
+          <li><strong>eVars (Conversion Variables, s.eVar1–s.eVar250):</strong> Persist across multiple hits. Configurable allocation (last touch, first touch, linear) and expiration (visit, X days, event, never). Used to attribute conversion events to a value set earlier in the journey.</li>
+        </ul>
+        <p><strong>Example:</strong> User clicks a promo banner (you set <code>eVar5 = "summer-sale"</code>), browses 3 more pages, then purchases. The eVar persists and the purchase is attributed to "summer-sale". A prop set on the banner click would not carry forward to the purchase hit.</p>
+        <div class="tip"><strong>Interview tip:</strong> If they ask "when would you use a prop instead of an eVar?" — answer: use props for dimension values that are relevant only at the hit level (like page-level button clicks for pathing), and where you need the Instances metric. Use eVars when you need to connect a value to a future conversion.</div>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-easy">Easy</span>
+        <span class="qa-q">4. What are the types of server calls (hits) in Adobe Analytics?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <ul>
+          <li><strong>Page View (s.t()):</strong> Fires a page view server call. Increments Page Views metric. Sets pageName.</li>
+          <li><strong>Link Tracking (s.tl()):</strong> Fires a non-page-view call. Three types: Custom Link (s.tl(this,'o','name')), Download Link (s.tl(this,'d','name')), Exit Link (s.tl(this,'e','name')). Does NOT increment Page Views.</li>
+        </ul>
+        <p>Pricing implication: Adobe charges based on total server calls, so excessive link tracking calls increase costs.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">5. Explain the three segment scopes (Hit, Visit, Visitor) with examples.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p><strong>Hit-level segment:</strong> Filters individual server calls. "Include hits where Page Name = Checkout." Result: only checkout page hits appear. If a visit had 10 page views, you see only the checkout hit.</p>
+        <p><strong>Visit-level segment:</strong> Includes ALL hits within qualifying visits. "Include visits where Revenue > 0." Result: you see every single page view in visits where a purchase happened — not just the purchase hit. This gives context to the user's journey.</p>
+        <p><strong>Visitor-level segment:</strong> Includes ALL data (all visits, all hits) for qualifying visitors. "Include visitors who purchased in last 30 days." Result: you see their entire history, including visits where they didn't purchase. This is how you analyze purchaser behavior over time.</p>
+        <div class="tip"><strong>Common trap:</strong> Interviewers may ask "what happens if you put a hit-level condition in a visitor container?" Answer: The visitor container includes all visitors where ANY hit matches the condition, and then shows ALL their data. It's the container scope that determines how much data is returned, not the condition.</div>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">6. What are Processing Rules? How are they different from VISTA Rules?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p><strong>Processing Rules:</strong> Admin-configured rules that run after data collection, before storage. They map context data variables (sent via <code>s.contextData['key']</code>) to props, eVars, or events. Also used for copying variables, simple string manipulation. Access via Admin Console. Changes apply only to future data.</p>
+        <p><strong>VISTA Rules:</strong> Server-side rules managed by Adobe (you request them via a support ticket or your Adobe consultant). Run before processing rules. More powerful — can route data to different report suites, perform complex transformations, modify any variable, and apply conditional logic. More expensive and slower to change.</p>
+        <p><strong>Order of processing:</strong> Data Collection → VISTA Rules → Processing Rules → Reporting.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">7. Explain Marketing Channels in Adobe Analytics.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Marketing Channels attribute visits to traffic sources using server-side processing rules. They evaluate conditions (tracking codes, referrer, query parameters) in a defined order — first match wins.</p>
+        <p>Configuration has two parts: (1) <strong>Marketing Channel Processing Rules</strong> — the logic (if query param "cid" contains "email" → assign to Email channel), and (2) <strong>Marketing Channel Manager</strong> — defines channel names and sub-channels.</p>
+        <p>Key settings: <strong>Engagement Expiration</strong> (default 30 days — how long a channel "owns" the visitor), <strong>First Touch vs Last Touch</strong> (AA tracks both simultaneously), and <strong>Override rules</strong> (can a channel override itself?).</p>
+        <p>Important distinction: Marketing Channels are separate from the Tracking Code dimension. Tracking Code is a single dimension populated by <code>s.campaign</code>. Marketing Channels are a multi-channel system.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">8. What is Attribution IQ and what models does it support?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Attribution IQ allows you to apply different attribution models to any metric in Analysis Workspace — retroactively, without changing implementation. You right-click any metric column header and select an attribution model + lookback window.</p>
+        <p>Models: First Touch, Last Touch, Linear, Time Decay, U-Shaped (40/20/40), J-Shaped (20/20/60), Inverse J, Participation (100% to all), Same Touch, Custom, and Algorithmic (ML-based, learns from your data).</p>
+        <p>Lookback windows: Visit, Visitor (up to 90 days), or Custom reporting window.</p>
+        <p>Use case: Compare last-touch revenue vs first-touch revenue for each marketing channel to understand which channels initiate vs close conversions.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">9. What is the s.products variable? Explain its syntax.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>The products variable tracks product-level data and follows a strict pipe-and-semicolon delimited syntax:</p>
+        <pre>"category;product;quantity;price[;incrementor=value[|incrementor2=value]][;merchandising eVar=value]"</pre>
+        <p>Example with one product:</p>
+        <pre>s.products = "Footwear;Nike-Air-Max;1;12999;event10=1;eVar10=red";</pre>
+        <p>Multiple products are separated by commas:</p>
+        <pre>s.products = "Footwear;Nike-Air-Max;1;12999,Apparel;T-Shirt;2;1499";</pre>
+        <p>The category field is optional (you can leave it empty: <code>";Nike-Air-Max;1;12999"</code>). Merchandising eVars set at the product level use product-level binding (vs conversion-level binding set via <code>s.eVar</code>).</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-hard">Hard</span>
+        <span class="qa-q">10. Explain the difference between Allocation and Expiration for eVars.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p><strong>Allocation</strong> determines what happens when a new value is set for an eVar that already has a persisted value:</p>
+        <ul>
+          <li><em>Most Recent (Last):</em> New value overwrites old. Default. Used for things like "last campaign clicked."</li>
+          <li><em>Original (First):</em> Original value persists; new values are ignored until expiration. Used for "first touch" attribution.</li>
+          <li><em>Linear:</em> Credit is split across all values set during the lookback.</li>
+        </ul>
+        <p><strong>Expiration</strong> determines how long the eVar value persists:</p>
+        <ul>
+          <li><em>Visit:</em> Expires at end of visit (30 min inactivity or browser close).</li>
+          <li><em>Page View:</em> Expires after the next page view.</li>
+          <li><em>X Days/Weeks/Months:</em> Custom time-based. E.g., 30 days for campaign tracking.</li>
+          <li><em>Never:</em> Persists indefinitely for the visitor (until cookie deletion).</li>
+          <li><em>Event:</em> Expires when a specific success event fires. E.g., expires on purchase — so campaign persists until conversion, then resets.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-hard">Hard</span>
+        <span class="qa-q">11. What is Classification (SAINT) and how do you use it?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Classifications let you add metadata to dimension values without changing the implementation. For example, if your tracking code is "GOOG_SEARCH_BRAND_2026Q1", you can classify it into: Channel = "Paid Search", Type = "Brand", Quarter = "Q1 2026", Platform = "Google".</p>
+        <p>Methods to upload: (1) <strong>Browser Import</strong> — upload a CSV/tab file via Admin. (2) <strong>FTP Import</strong> — automated uploads to Adobe's FTP. (3) <strong>Classification Rule Builder</strong> — define regex-based rules to auto-classify. Example: if tracking code matches <code>^GOOG_</code>, set Platform = "Google".</p>
+        <p>Classifications create sub-dimensions. In Workspace, when you drag the original dimension, you can select its classification as a breakdown. Classifications are retroactive — they apply to historical data.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-hard">Hard</span>
+        <span class="qa-q">12. What is the difference between Entries, Instances, and Occurrences?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>This is a classic "gotcha" question.</p>
+        <ul>
+          <li><strong>Entries:</strong> The number of times a dimension value was the FIRST value in a visit. Only relevant for eVars/dimensions. Example: if a user's first page in a visit is "Homepage", that's 1 Entry for Homepage.</li>
+          <li><strong>Instances:</strong> The number of times a variable was explicitly SET in an image request. For props, Instances = the number of hits where that prop was populated. For eVars, it's the number of hits where the eVar was explicitly set (not persisted from a previous hit).</li>
+          <li><strong>Occurrences:</strong> The total number of times a dimension value was set OR persisted. For eVars, Occurrences = Instances + all subsequent hits where the value persisted. Occurrences > Instances because of persistence.</li>
+        </ul>
+        <p>For <strong>props</strong>, Instances = Occurrences because props don't persist. For <strong>eVars</strong>, Occurrences ≥ Instances.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-hard">Hard</span>
+        <span class="qa-q">13. Explain Sequential Segmentation with a practical example.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Sequential segments let you define conditions in a specific order using THEN logic. This is critical for funnel analysis beyond the standard fallout report.</p>
+        <p><strong>Example:</strong> "Users who viewed a category page, THEN added to cart, THEN did NOT purchase within the same visit."</p>
+        <p>In Segment Builder: Visit container → Hit 1: Page Type = "Category" → THEN → Hit 2: Event = "Cart Add" → THEN → Exclude Hit 3: Event = "Purchase".</p>
+        <p>Advanced options: <strong>Within</strong> — "A THEN within 5 minutes B" restricts time between steps. <strong>After</strong> — "A THEN after 3 days B" requires minimum gap. <strong>Only Before/After Sequence</strong> — show only hits before or after the matched sequence, not the entire visit.</p>
+        <div class="tip"><strong>Interview power move:</strong> If asked about sequential segments, draw the segment visually on paper — show containers nested with THEN operators. This demonstrates you actually build them, not just read about them.</div>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-hard">Hard</span>
+        <span class="qa-q">14. What is AppMeasurement vs Adobe Web SDK? When would you use each?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p><strong>AppMeasurement.js</strong> is the legacy JavaScript library dedicated to Adobe Analytics. It directly sets AA variables (<code>s.eVar1</code>, <code>s.prop1</code>, <code>s.events</code>) and sends data to Adobe's collection servers. Mature, well-documented, large existing install base.</p>
+        <p><strong>Adobe Web SDK (Alloy.js)</strong> is the modern, unified library that sends data through the Adobe Experience Platform Edge Network using XDM schemas. One tag serves multiple products: Analytics, Target, RTCDP, Audience Manager. It's the future — all new implementations should use Web SDK.</p>
+        <p>When to use which: <strong>Web SDK</strong> for new implementations, if you use AEP/RTCDP, or if you want to consolidate multiple Adobe libraries into one. <strong>AppMeasurement</strong> for existing implementations that are stable and don't need AEP integration — migration should be planned but isn't always urgent.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-expert">Expert</span>
+        <span class="qa-q">15. How would you design a Solution Design Reference (SDR) for a new client?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>The SDR (also called Solution Design Document) is the blueprint for an analytics implementation. It maps business requirements to technical variables.</p>
+        <p>Steps: (1) <strong>Business Requirements Workshop:</strong> Interview stakeholders to understand KPIs, reporting needs, and user journeys. (2) <strong>Define Events:</strong> Map each business action to a success event — e.g., "Product View" → event1, "Cart Add" → event2, "Purchase" → purchase event. (3) <strong>Define Dimensions:</strong> For each event, identify what context is needed — product name (eVar), campaign (eVar), page type (prop). (4) <strong>Variable Assignment:</strong> Assign specific eVars, props, and events to each requirement. Document naming conventions.</p>
+        <p>SDR spreadsheet columns: Business Requirement | Variable (eVar/prop/event) | Description | Example Value | Allocation | Expiration | Implementation Notes.</p>
+        <p>Also document: Data Layer specification, tag management rules, classification plans, processing rules, and marketing channel configuration. The SDR becomes the single source of truth for the entire implementation.</p>
+      </div>
+    </div>
+
+    <!-- More AA questions -->
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-easy">Easy</span>
+        <span class="qa-q">16. What are Calculated Metrics in Adobe Analytics?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Calculated Metrics are custom metrics created from formulas using existing metrics. Built in the Calculated Metric Builder. Examples: Conversion Rate = Orders ÷ Visits, Revenue Per Visitor = Revenue ÷ Unique Visitors, Cart Abandonment Rate = (Cart Adds - Orders) ÷ Cart Adds.</p>
+        <p>Advanced features: segment-based calculated metrics (Conversion Rate for Mobile Users), statistical functions (mean, median, percentile), and the ability to use them anywhere a standard metric is used in Workspace.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">17. What is the difference between a Fallout and a Flow report?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p><strong>Fallout:</strong> You define specific checkpoints (pages, events, dimensions), and it shows what percentage of users progress through each step. Linear funnel view. You control the steps. Shows drop-off rates. Can use segments, pages, events, or any dimension as touchpoints.</p>
+        <p><strong>Flow:</strong> Shows the actual paths users take before and after a given page or dimension — you see what comes next/before organically. No predefined steps. Shows branching paths. Useful for discovery — "what do users actually do after the product page?" vs. Fallout's "how many complete my predefined funnel?"</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-medium">Medium</span>
+        <span class="qa-q">18. What is Data Warehouse and when would you use it?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Data Warehouse handles requests that Analysis Workspace can't — large date ranges, high cardinality dimensions, many breakdowns, or raw-level exports. It processes offline and delivers results via email or FTP (CSV/Excel format).</p>
+        <p>Use when: you need to export millions of rows, when you need full unsampled data for a year-long date range, when you need more than 50,000 rows in a breakdown, or for automated scheduled reporting to stakeholders who don't use Workspace.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-hard">Hard</span>
+        <span class="qa-q">19. How does data sampling work in Adobe Analytics?</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>A tricky one — Adobe Analytics <strong>does not sample data</strong> in standard reporting or Analysis Workspace. This is a key differentiator from GA4 (which samples Explorations for standard properties with high traffic). However, some features do have limitations:</p>
+        <ul>
+          <li>Segment Comparison (Segment IQ) may use statistical sampling for performance.</li>
+          <li>Contribution Analysis processes a subset of data.</li>
+          <li>Very large date ranges in Workspace may hit row limits (50,000) — use Data Warehouse for complete data.</li>
+        </ul>
+        <p>The "no sampling" point is a strong selling point for AA over GA4 in interviews — use it when asked comparative questions.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header">
+        <span class="qa-diff diff-expert">Expert</span>
+        <span class="qa-q">20. Explain Merchandising eVars — conversion-level vs product-level binding.</span>
+        <span class="qa-toggle">+</span>
+      </div>
+      <div class="qa-answer">
+        <p>Merchandising eVars attribute a value to a specific product, not just the visit. Critical for ecommerce — e.g., attributing "internal search term" to the product the user found via that search.</p>
+        <p><strong>Conversion syntax (binding event):</strong> The eVar is bound to a product when a specified event fires. Example: user searches "running shoes" (set eVar), clicks product Nike Air (cart add event = binding event) → "running shoes" is bound to Nike Air specifically. Even if they search "casual shoes" later and add Adidas, "running shoes" stays bound to Nike Air.</p>
+        <p><strong>Product syntax:</strong> The eVar is set directly inside the products variable: <code>s.products = "shoes;Nike-Air;1;12999;;eVar10=running-shoes"</code>. The binding is explicit at the product level in the same hit.</p>
+      </div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">21. What are List Variables (listVars) and List Props?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>List Variables (s.list1–s.list3):</strong> Allow multiple values in a single variable per hit, using a delimiter (comma, pipe, colon). Each value gets full credit for the event. Useful for tagging multiple categories, product features, or content tags simultaneously. They persist like eVars.</p><p><strong>List Props:</strong> Same concept but for props — multiple delimited values in one prop. No persistence. Useful for multiple page-level attributes.</p><p>Example: An article is tagged with 3 topics — <code>s.list1 = "politics,economy,india"</code>. All three values will be associated with any events fired on that page.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">22. What is Anomaly Detection and Contribution Analysis?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Anomaly Detection:</strong> Uses statistical models (Holt-Winters, seasonal decomposition) to detect metric values significantly above or below expected. Displayed as a shaded confidence band on trended charts. Automatically identifies spikes and drops. Configurable granularity (hourly, daily, weekly).</p><p><strong>Contribution Analysis:</strong> When an anomaly is detected, this feature identifies which dimension values contributed most to the anomaly. It runs a one-click analysis across ALL dimensions and surfaces the top contributors. Example: traffic spike detected → Contribution Analysis reveals "Referrer = reddit.com" and "Page = viral-article" were the drivers.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">23. Explain Virtual Report Suites (VRS).</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Virtual Report Suites are filtered views of a parent report suite. They don't collect data themselves — they apply a segment to the parent data. Use them to: give teams access to only their data (Mobile team sees only app data), create region-specific views without multi-suite tagging overhead, or apply consistent filters (exclude internal traffic).</p><p>VRS support component curation (show only relevant dimensions/metrics to the team), custom session definitions (override the 30-minute timeout), and report time processing (apply eVar allocation and expiration rules at report time rather than collection time).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">24. What is Cross-Device Analytics (CDA) in Adobe Analytics?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>CDA stitches visits from multiple devices into a single visitor profile. A user browses on phone (cookie A), then purchases on laptop (cookie B). Without CDA, these are two separate visitors. With CDA, they're merged.</p><p>Methods: <strong>Field-based stitching</strong> — uses a persistent ID (like CRM ID) set in an eVar when user logs in. <strong>Device Graph</strong> — uses Adobe's cooperative device graph or private graph for probabilistic matching. CDA replays data (reprocessing) to stitch retroactively. Lookback window configurable.</p><p>This is now being replaced by AEP Identity Service in the Web SDK world, but CDA is still used on AppMeasurement implementations.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">25. How would you migrate from AppMeasurement to Web SDK?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Migration steps: (1) <strong>Audit current implementation</strong> — document all variables used (eVars, props, events), processing rules, VISTA rules, plugins. (2) <strong>Create XDM schema in AEP</strong> — map existing variables to XDM fields. Custom fields via custom field groups. (3) <strong>Configure Datastream</strong> in AEP — enable Adobe Analytics service, map XDM to AA variables. (4) <strong>Update tag management</strong> — replace AppMeasurement/AA extension with Web SDK extension in Adobe Launch. Map data elements to XDM. (5) <strong>Run parallel tracking</strong> — send to both for validation period. Compare data in both report suites. (6) <strong>Decommission AppMeasurement</strong> after validation.</p><p>Key challenges: s.products variable mapping is complex in XDM, plugin functionality needs to be rebuilt, and processing rules may need adjustments since data arrives differently.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= ADOBE TARGET ========================= -->
+  <div class="section" id="sec-at">
+    <div class="section-header">
+      <span class="section-tag tag-adobe">Adobe Target</span>
+      <h2>Adobe Target — 20 Questions</h2>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">1. What are the different activity types in Adobe Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Seven activity types: (1) <strong>A/B Test</strong> — manual traffic split, compare experiences. (2) <strong>Auto-Allocate</strong> — AI-driven traffic shifting to winner. (3) <strong>Auto-Target</strong> — ML serves best experience per visitor. (4) <strong>Experience Targeting (XT)</strong> — rule-based, no testing, serve specific experiences to specific audiences. (5) <strong>Multivariate Test (MVT)</strong> — test combinations of multiple elements. (6) <strong>Automated Personalization (AP)</strong> — 1:1 ML personalization across offers. (7) <strong>Recommendations</strong> — algorithm-driven product/content recommendations.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">2. What is the VEC (Visual Experience Composer)?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>VEC is a WYSIWYG editor that loads your website in an iframe and lets you visually modify elements — change text, swap images, rearrange layout, hide elements, add HTML — to create test variations without writing code. Select an element → choose action (edit text, replace, move, resize, remove, insert before/after). Supports CSS selector-based targeting. Also supports single-page app VEC for SPAs with view-based targeting.</p><p>Common issues: VEC may not load due to iFrame restrictions, mixed content (HTTP/HTTPS), or CSP headers. Solution: use the Enhanced Experience Composer (EEC) which routes through Adobe's proxy, or fall back to Form-Based Composer.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">3. What is A4T (Analytics for Target)? Why use it?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A4T uses Adobe Analytics as the reporting backend for Target activities instead of Target's native reporting. Benefits: (1) Access to all AA metrics, segments, and dimensions. (2) Single source of truth — no discrepancy between AA and Target numbers. (3) Attribution IQ available for test analysis. (4) Larger audience and metric library.</p><p>How it works: Target adds supplemental data IDs (SDID) to synchronize the AA and Target hits. Both fire on the same page; SDID links them server-side. Configured per activity in Target's reporting settings. Requires both AA and Target to be on the same page.</p><p>Important caveat: A4T reporting uses different statistical methodology (confidence intervals based on t-distribution) compared to Target's native reporting. Lift calculations may look different.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">4. Explain the concept of flicker and how to prevent it.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Flicker occurs when users briefly see the default content before Target swaps in the test experience. It hurts user experience and can invalidate test results (users may react to the swap, not the experience).</p><p>Prevention methods: (1) <strong>Pre-hiding snippet</strong> — CSS/JS that hides the body until Target's response arrives (<code>opacity: 0</code> with timeout). (2) <strong>Asynchronous at.js with pre-hiding</strong> — the standard approach. (3) <strong>Synchronous loading</strong> — blocks page render until Target responds (bad for performance, rarely used). (4) <strong>On-device decisioning</strong> — decisions made client-side from cached rules (zero network latency = no flicker).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">5. How does Auto-Target work? When would you use it vs a standard A/B test?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Auto-Target uses machine learning (Random Forest algorithm) to learn which experience performs best for different visitor segments. It builds a model from visitor attributes (geo, device, behavior, etc.) and continuously optimizes traffic allocation.</p><p>Use Auto-Target when: you have many experiences (3+), sufficient traffic (minimum ~50 conversions per experience for the model to learn), and you want personalization without manually defining audience rules. Use standard A/B when: you need a clean statistical test with full control, you have a specific hypothesis, or you need to report on the lift of a single change with traditional confidence intervals.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">6. What are Profile Scripts in Adobe Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Profile Scripts are server-side JavaScript snippets that execute on every mbox call. They create or update custom visitor profile attributes that persist across visits. They run on Adobe's servers, not in the browser.</p><p>Common uses: (1) Visit counter — increment a value each session. (2) Category affinity — track which category the user views most. (3) Engagement scorer — assign points based on behavior. (4) Lifecycle stage — new vs returning vs loyal.</p><pre>// Profile Script: Visit Counter
+if (user.get('visitCount')) {
+  return parseInt(user.get('visitCount')) + 1;
+} else {
+  return 1;
+}</pre><p>Profile attributes from scripts can be used in audience definitions, experience targeting, and reporting.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">7. What is Sample Ratio Mismatch (SRM) and why is it critical?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>SRM occurs when the actual traffic distribution between test groups doesn't match the configured split. If you set 50/50 but observe 52/48 with statistical significance, that's SRM. It indicates a fundamental problem with the test setup.</p><p>Why it's critical: SRM means the randomization is broken. Any results are unreliable — you can't trust lift or confidence numbers. It's worse than a failed test because it gives false confidence.</p><p>Common causes: bot traffic affecting one variant differently, redirect delays causing more drop-off in one variant, browser caching serving one experience more, or implementation bugs where the experience assignment code has side effects.</p><p>Detection: Calculate chi-squared test on observed vs expected visitor counts per experience. Many teams check SRM before looking at results — it's the first validation step.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">8. How do Recommendations work in Adobe Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Recommendations uses algorithms to suggest relevant products/content. Setup requires: (1) <strong>Product/Content Catalog</strong> — uploaded via CSV feed or API. Contains entity attributes (ID, name, category, price, image URL). (2) <strong>Behavioral Data</strong> — collected via mbox calls (entity.id, entity.categoryId on product pages). (3) <strong>Algorithms</strong> — People who viewed X viewed Y, People who bought X bought Y, Items with similar attributes, Popularity-based, Recently viewed, Custom criteria (upload your own model).</p><p>Design: (1) <strong>Criteria</strong> — which algorithm + filtering rules. (2) <strong>Design templates</strong> — HTML/CSS for how recommendations render. (3) <strong>Activity</strong> — where on the page, which audiences see it.</p><p>Advanced: Inclusion rules, slot-level filtering, backup recommendations for cold-start items, multi-criteria sequences, and Criteria Sequences that chain algorithms.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">9. What is on-device decisioning in Adobe Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>On-device decisioning caches Target activity rules locally (in the at.js library or on a server-side SDK) and makes personalization decisions without a network roundtrip to Adobe's servers. This means near-zero latency for decisions.</p><p>How: A rules artifact (JSON file) containing all qualifying activities is downloaded and cached. When a decision is needed, the SDK evaluates rules locally. The artifact is updated periodically (every 5 minutes by default).</p><p>Supported activities: A/B, XT, and some audience types. Not supported: AP, Auto-Target, Recommendations (these need server-side ML). Two modes: on-device only, hybrid (on-device for eligible, server-side for rest).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">10. What is the difference between A/B test and Experience Targeting (XT)?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>A/B Test:</strong> Randomly splits traffic between experiences to determine which performs better. Statistical testing involved. All visitors have equal chance of seeing any experience. Goal: find the best experience.</p><p><strong>Experience Targeting (XT):</strong> Shows specific experiences to specific audiences based on rules — no randomization, no statistical testing. Visitor from Mumbai sees banner A, visitor from Delhi sees banner B. Goal: deliver known-best content to defined segments.</p><p>Think of it as: A/B = experiment to discover. XT = deliver what you already know works for each segment.</p></div>
+    </div>
+
+    <!-- Remaining Target questions abbreviated for space but still comprehensive -->
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">11. How would you design a testing roadmap for a client?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>This is a consulting-style question. Framework: (1) <strong>Audit:</strong> Review analytics data — identify pages with highest traffic and worst conversion rates. These are test candidates. (2) <strong>Hypothesize:</strong> For each candidate, form hypotheses based on data (high bounce on landing page → hypothesis: simplify hero section). (3) <strong>Prioritize:</strong> Use PIE framework (Potential × Importance × Ease) or ICE (Impact × Confidence × Ease) to rank tests. (4) <strong>Roadmap:</strong> Calendar with test name, hypothesis, KPI, estimated traffic needed, duration, and sequential dependencies. (5) <strong>Velocity target:</strong> Aim for 2–4 tests/month to build a learning culture.</p><p>Always tie testing back to business outcomes — "this test could improve checkout conversion by X%, worth ₹Y revenue/month" gets executive buy-in.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">12. What traffic do you need to run a valid A/B test?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Depends on four factors: (1) Baseline conversion rate, (2) Minimum Detectable Effect (MDE) — the smallest lift you want to detect, (3) Statistical significance level (typically 95%), (4) Statistical power (typically 80%).</p><p>Rule of thumb: for a baseline 5% conversion rate with 10% relative MDE, you need ~30,000 visitors per variation. For 2% baseline with 20% MDE, ~15,000 per variation. Use Adobe's sample size calculator or tools like Evan Miller's calculator.</p><p>Duration: run for at least 1–2 full business cycles (typically 2 weeks minimum) even if you hit sample size earlier — to account for day-of-week effects and natural traffic variation.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">13. What is the difference between Automated Personalization and Auto-Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Auto-Target:</strong> You create distinct, complete experiences (Experience A, B, C). ML selects the best whole experience for each visitor.</p><p><strong>Automated Personalization (AP):</strong> You provide individual content offers (headline 1, 2, 3 + image A, B, C + CTA X, Y). ML mixes and matches to create the best combination for each visitor. It's more granular — testing at the element level, not experience level.</p><p>AP requires more traffic because the combinations multiply (3 headlines × 3 images × 3 CTAs = 27 combos). Auto-Target is better when you have a few strong experience ideas. AP is better when you have many content pieces and want the algorithm to find optimal combinations.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">14. How do you handle testing on Single Page Applications (SPAs)?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>SPAs don't trigger full page reloads, so traditional mbox calls tied to page load don't fire on virtual navigation. Solutions:</p><p><strong>at.js 2.x:</strong> Use <code>triggerView('viewName')</code> on each virtual page change. In VEC, create experiences per view. When user navigates, at.js fetches and applies the relevant offer for that view.</p><p><strong>Web SDK:</strong> Send <code>sendEvent</code> with <code>renderDecisions: true</code> on each route change. Use the <code>web.webPageDetails.viewName</code> XDM field to identify the view.</p><p>Key challenge: ensure the DOM element you're targeting exists when Target applies the change. If the component renders asynchronously (React, Angular), Target might apply changes to an element that doesn't exist yet. Use mutation observers or event-driven triggering.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">15. What metrics can you use as goals in Adobe Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Target supports: <strong>Conversion</strong> — mbox viewed, mbox clicked, or custom mbox event. <strong>Revenue</strong> — revenue per visitor, using orderTotal parameter. <strong>Engagement</strong> — pages per visit, time on site. When using A4T, you can use ANY Adobe Analytics metric as the goal metric — this is a major advantage.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">16. What are Response Tokens in Adobe Target?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Response Tokens return metadata about the Target decision alongside the content response. You enable them in Administration. They return info like: activity name, experience name, activity ID, offer ID, audience matched, etc.</p><p>Use cases: Send Target activity metadata to a third-party analytics tool, log which test experience a user saw in your data warehouse, debug which audience/experience is being served, pass offer metadata to downstream systems.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">17. How would you set up a multi-page funnel test?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Scenario: test a different checkout flow spanning 3 pages. Approach: (1) Create an A/B test with redirect offers — Experience B redirects to alternative versions of each checkout page. (2) Use profile scripts or mbox parameters to persist which experience the visitor is in across pages — so they see a consistent experience throughout the funnel. (3) Set the conversion goal at the final confirmation page. (4) Ensure the experience is "sticky" — if a user returns to checkout later, they should be in the same experience.</p><p>Alternative approach with form-based composer: use JSON offers at each mbox, and have the front-end logic render different UI based on the JSON flag. This avoids redirect latency issues.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">18. Explain Audience Sources available in Adobe Target.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Target audiences can come from: (1) <strong>Target-native:</strong> Rules based on browser, geo, OS, URL, custom parameters. (2) <strong>Adobe Analytics segments</strong> (via Experience Cloud shared audiences). (3) <strong>Adobe Audience Manager:</strong> DMP segments synced to Target. (4) <strong>RTCDP/AEP segments:</strong> Pushed to Target via Edge. (5) <strong>Custom attributes:</strong> Via customer attributes (CRM upload) shared through Experience Cloud. (6) <strong>Profile scripts:</strong> Custom computed attributes.</p><p>In Web SDK, edges evaluate AEP segments in real-time and make them available to Target decisions — true real-time personalization using unified profiles.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">19. What is the difference between Full Factorial and Fractional Factorial MVT?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Full Factorial:</strong> Tests ALL possible combinations. 3 headlines × 3 images × 2 CTAs = 18 combinations. Needs 18× the traffic per combination. Identifies both main effects AND interaction effects between elements.</p><p><strong>Fractional Factorial:</strong> Tests a representative subset. Uses statistical inference to estimate the remaining combinations. Needs far less traffic. Only identifies main effects — misses interactions. When the headline-image combo matters more than each alone, fractional factorial misses that.</p><p>Recommendation: use full factorial only with low number of combinations (&lt;16) and high traffic. Use partial factorial for 16+ combos or lower traffic sites.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">20. How do you handle conflicting/overlapping Target activities?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>When multiple activities target the same location, Target uses a priority system: (1) <strong>Priority number</strong> set in each activity (0–999, or High/Medium/Low). Higher priority wins. (2) For same priority, most recently modified activity wins. (3) For different activity types, Target follows: Recommendation > AP > Auto-Target > MVT > A/B > XT.</p><p>Best practices: use a priority governance matrix. Document which pages have which activities. Avoid collisions by using different mbox locations for different activities. Use QA links to verify the right activity fires. Watch for "activity pollution" where a test on page 1 affects behavior measured by a test on page 2 — separate audiences or use exclusion rules.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= RTCDP ========================= -->
+  <div class="section" id="sec-rtcdp">
+    <div class="section-header">
+      <span class="section-tag tag-adobe">Adobe RTCDP</span>
+      <h2>Adobe RTCDP — 15 Questions</h2>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">1. What is a CDP and how is RTCDP different from a DMP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A <strong>Customer Data Platform (CDP)</strong> collects first-party customer data from multiple sources, builds unified persistent profiles, and activates them across channels. RTCDP = Adobe's CDP built on Adobe Experience Platform.</p><p><strong>DMP vs CDP:</strong> A DMP (like Adobe Audience Manager) uses anonymous, cookie-based 3rd-party data with a short lifespan (90 days typically). A CDP uses known first-party data (email, phone, CRM IDs) with persistent profiles. In a cookieless world (3rd-party cookie deprecation), DMPs lose effectiveness while CDPs become essential. CDPs handle PII with consent management; DMPs generally don't handle PII.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">2. What is XDM? Why is it important?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>XDM (Experience Data Model) is Adobe's standardized schema framework. It defines how data is structured across AEP. Three base classes: <strong>XDM Individual Profile</strong> (person attributes — name, email, loyalty level), <strong>XDM ExperienceEvent</strong> (time-stamped actions — page view, purchase, email open), and <strong>XDM Business Account</strong> (B2B account data).</p><p>Schemas are built from reusable <strong>field groups</strong> — pre-built collections of related fields (Demographics, Commerce, Web, etc.) plus custom field groups. Why important: standardized data across all Adobe products enables a unified view. If Analytics, Target, and Campaign all send data in XDM format, the profile is automatically unified.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">3. Explain how Identity Resolution works in AEP/RTCDP.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Identity Service resolves multiple identifiers (email, phone, CRM ID, cookie ID, AAID, ECID) into a single identity graph per person. Process: (1) Each data source sends identifiers with namespace labels (e.g., namespace="Email", value="user@example.com"). (2) Identity Service uses <strong>deterministic matching</strong> (exact match on known IDs like email) and optionally <strong>probabilistic matching</strong> (device graph for anonymous matching). (3) An identity graph is built linking all IDs for one person.</p><p>The Real-Time Customer Profile then merges all profile fragments (from different datasets/sources) associated with the linked identities into one unified profile. Merge policies control priority (which dataset's values win for conflicting fields) and stitching behavior.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">4. What are Destinations in RTCDP? Give examples.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Destinations are the systems where you activate (send) your audience segments. Categories: (1) <strong>Advertising:</strong> Google Ads, Facebook/Meta Ads, The Trade Desk — for lookalike and retargeting campaigns. (2) <strong>Social:</strong> Facebook Custom Audiences, LinkedIn Matched Audiences. (3) <strong>Email/Marketing:</strong> Salesforce Marketing Cloud, Marketo, Braze. (4) <strong>Personalization:</strong> Adobe Target, custom webhook for real-time personalization engines. (5) <strong>Cloud Storage:</strong> S3, Azure Blob, SFTP — for batch exports. (6) <strong>Streaming:</strong> HTTP API destinations for real-time segment pushes.</p><p>Destinations are governed by data usage policies — if a segment contains data labeled "C1 (no third-party sharing)", the system blocks export to advertising destinations.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">5. What is Data Governance (DULE) in AEP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>DULE = Data Usage Labeling and Enforcement. It's AEP's built-in governance framework. You label data fields with categories: C1 (can't combine with 3rd party), C2 (can't export to 3rd party), C3 (can't combine/share with directly identifiable info), etc. Also sensitivity labels: S1 (geo), S2 (PII).</p><p>When you try to activate a segment to a destination, the system checks if any included data violates a policy. If your segment uses a field labeled C2 and the destination is Facebook Ads (a third party), the system blocks the activation. Policies are enforced automatically, not manually — reducing compliance risk.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">6. Explain the different types of segmentation in RTCDP.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Three types: (1) <strong>Batch Segmentation:</strong> Evaluates segment membership on a schedule (typically daily). Suitable for large complex segments where real-time isn't needed. (2) <strong>Streaming Segmentation:</strong> Evaluates in near-real-time as events arrive. Profile enters/exits segments within minutes. Conditions must be simple (no time-window queries). (3) <strong>Edge Segmentation:</strong> Evaluates on the Edge Network itself — millisecond-level latency. Used for same-page personalization. Limited to specific condition types (current page, current session behavior). Edge segments are available to Target decisions instantly.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">7. How does consent management work in RTCDP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>AEP has a built-in consent framework using the XDM Consent field group. Consent is captured per purpose (analytics, advertising, personalization) and per channel (email, push, SMS). Consent data is stored on the profile. When segments are activated, the system checks consent status and excludes non-consented profiles from the export.</p><p>Integrates with CMPs (Consent Management Platforms) like OneTrust. Web SDK sends consent signals via <code>setConsent</code> API call. Supports GDPR, CCPA, and other privacy regulations. Also supports data subject access requests (DSAR) — users can request their data or deletion.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">8. What are Sources in RTCDP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Sources are connectors that ingest data into AEP. Categories: (1) Adobe applications — Analytics, Audience Manager, Campaign, Target. (2) Cloud storage — Amazon S3, Azure Blob, Google Cloud Storage. (3) CRM — Salesforce, Microsoft Dynamics, HubSpot. (4) Database — MySQL, PostgreSQL, SQL Server. (5) Streaming — HTTP API (custom events in real-time), Web SDK (browser events). (6) Marketing automation — Mailchimp, Oracle Eloqua.</p><p>Sources support batch (scheduled ingestion) and streaming (real-time) modes. Data is mapped to XDM schemas during ingestion configuration.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">9. What is a Datastream? How does it relate to RTCDP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A Datastream is a server-side configuration that tells the Edge Network where to route data collected by Web SDK. It's the bridge between data collection and AEP services. In the Datastream configuration, you enable specific services: Adobe Analytics (with RSID mapping), Adobe Target, RTCDP (event forwarding to AEP), Audience Manager, etc.</p><p>One Web SDK implementation → one Datastream → data routed to multiple services simultaneously. Datastreams also support environment overrides (dev/staging/prod RSIDs) and geolocation/privacy settings.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">10. Describe a real-world RTCDP use case end-to-end.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Use case: Cart Abandonment Recovery across Channels</strong></p>
+      <p>(1) <strong>Data Collection:</strong> Web SDK captures "add_to_cart" and "purchase" events in real-time via streaming ingestion into AEP. CRM data imported from Salesforce via batch source. Email interaction data from Marketo.</p>
+      <p>(2) <strong>Identity Resolution:</strong> User logs in on website (ECID linked to CRM ID + email). Identity graph unified.</p>
+      <p>(3) <strong>Streaming Segment:</strong> "Users who added to cart in last 2 hours AND did not purchase." Evaluated in real-time.</p>
+      <p>(4) <strong>Activation:</strong> Segment activated to three destinations: (a) Adobe Target — show "complete your order" banner on next visit, (b) Email platform — trigger cart abandonment email with product images, (c) Facebook Ads — suppress from prospecting campaigns, add to retargeting.</p>
+      <p>(5) <strong>Governance:</strong> User's consent is checked — if they opted out of email marketing, they're excluded from the email destination but still see the website banner.</p>
+      <p>(6) <strong>Measurement:</strong> Revenue attributed to the recovery campaign via AA with A4T and Campaign attribution.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">11. What are Merge Policies and why do they matter?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>When multiple datasets contribute conflicting data for the same profile, merge policies decide which value wins. Example: CRM says city = "Mumbai", website registration says city = "Pune". Merge policy determines which is the "truth."</p><p>Options: Dataset precedence (rank datasets by reliability — CRM wins over web data), Timestamp ordering (most recent update wins). Also controls identity stitching behavior — which identity graph to use (private graph vs shared graph).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">12. What is Edge Segmentation and what are its limitations?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Edge segmentation evaluates on the Adobe Edge Network — CDN-level speed. Used for: "current page is X", "user is on mobile right now", "referrer contains Y". Available within the same server roundtrip — Target can use edge segments for immediate personalization.</p><p>Limitations: Only supports simple, current-context rules. Cannot use: time-window conditions ("in the last 7 days"), sequential conditions ("did A then B"), aggregate functions ("total purchases > 5"), or complex profile attributes that aren't available at the edge. For these, use streaming segmentation (seconds/minutes) or batch (daily).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">13. How do Lookalike Audiences work in RTCDP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Lookalike Audiences use ML to find profiles similar to a seed audience. You provide a high-value segment (e.g., "users with LTV > ₹50,000") as the seed. The algorithm analyzes attributes and behaviors of seed profiles and finds similar profiles in your broader database.</p><p>Configurable similarity threshold — higher threshold = more similar but smaller audience, lower = broader but less similar. Output is a new segment that can be activated to advertising destinations for prospecting. Requires a minimum seed size for the model to learn effectively.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">14. What is AEP Query Service and how does it complement RTCDP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Query Service lets you run SQL queries directly against datasets in AEP's Data Lake (not the Profile Store). It uses standard ANSI SQL. Use cases: (1) Explore raw data before building segments. (2) Create computed datasets (e.g., RFM scores) that feed back into profiles. (3) Build attribution models on raw event data. (4) Data validation — check ingestion quality.</p><p>Query Service supports Jupyter notebooks, third-party BI tools (Tableau, Power BI via Postgres protocol), and ad hoc queries in the AEP UI. Computed datasets can be enabled for Profile and used in segmentation — this is how you build advanced ML-powered segments.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">15. Explain B2B vs B2C editions of RTCDP.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>B2C:</strong> Person-centric. Profiles represent individual consumers. Segments target people based on behavior, demographics, preferences. Destinations: consumer ad platforms, email, push notifications.</p><p><strong>B2B:</strong> Account-centric. Adds XDM Business schemas — Account, Opportunity, Campaign Member, Marketing List. Supports account-level segmentation ("companies in financial services with 500+ employees that visited pricing page"). Integrates with Marketo for lead scoring and ABM (Account-Based Marketing). Relationships: accounts → people → opportunities.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= GA4 ========================= -->
+  <div class="section" id="sec-ga4">
+    <div class="section-header">
+      <span class="section-tag tag-google">Google Analytics 4</span>
+      <h2>GA4 — 25 Questions</h2>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">1. What is the event-based data model in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>In GA4, everything is an event. There are no "hit types" like in Universal Analytics (pageview hit, event hit, transaction hit, social hit). A page view is an event called <code>page_view</code>. A purchase is an event called <code>purchase</code>. A scroll is an event called <code>scroll</code>.</p><p>Each event has parameters (key-value pairs) that carry details. The event <code>purchase</code> has parameters like <code>transaction_id</code>, <code>value</code>, <code>currency</code>, <code>items[]</code>. This gives GA4 a flexible, extensible model — you can create any custom event with up to 25 parameters.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">2. What are the four event categories in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) <strong>Automatically collected:</strong> Fire with base GA4 installation — <code>page_view</code>, <code>session_start</code>, <code>first_visit</code>, <code>user_engagement</code>. (2) <strong>Enhanced measurement:</strong> Toggle in Admin — <code>scroll</code>, <code>outbound_click</code>, <code>site_search</code>, <code>video_start/progress/complete</code>, <code>file_download</code>, <code>form_start/submit</code>. (3) <strong>Recommended:</strong> Google-defined names you implement manually — <code>login</code>, <code>sign_up</code>, <code>add_to_cart</code>, <code>purchase</code>, <code>view_item</code>. Using recommended names unlocks built-in reports. (4) <strong>Custom:</strong> Anything you define — <code>lead_form_submit</code>, <code>plan_comparison</code>.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">3. What replaced Bounce Rate in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Engagement Rate</strong> replaced Bounce Rate as the primary engagement metric. An engaged session is one that: lasted longer than 10 seconds, OR had 2+ page/screen views, OR triggered a conversion event. Engagement Rate = Engaged Sessions / Total Sessions.</p><p>GA4 does also provide Bounce Rate now (added later), but it's defined as the inverse: Bounce Rate = 1 - Engagement Rate. This is conceptually different from UA's Bounce Rate (which was single-page sessions with no interaction).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">4. How do sessions work in GA4 vs Universal Analytics?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Key differences: (1) GA4 session timeout is 30 minutes of inactivity (same as UA), but GA4 also resets at midnight by default. (2) In UA, a new campaign parameter (utm change) would start a new session. In GA4, campaign changes do NOT create new sessions — the session continues. This means GA4 will typically show fewer sessions than UA for the same traffic. (3) GA4 sessions are measured by <code>session_start</code> event + <code>ga_session_id</code> parameter. (4) The engaged session concept is new — not all sessions count as "engaged."</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">5. What are custom dimensions and metrics in GA4? What are the limits?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Event parameters become useful in reports only when registered as custom dimensions or metrics in Admin → Custom definitions. Two scopes: <strong>Event-scoped custom dimensions</strong> — associated with a specific event occurrence. <strong>User-scoped custom dimensions</strong> — associated with the user (set via user properties).</p><p>Limits (standard property): 50 event-scoped custom dimensions, 25 user-scoped custom dimensions, 50 custom metrics. GA4 360: 125 event-scoped, 100 user-scoped, 125 custom metrics. These limits are important — plan your implementation carefully.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">6. What is Consent Mode in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Consent Mode adjusts Google tag behavior based on user consent. Two key consent types: <code>analytics_storage</code> (GA cookies) and <code>ad_storage</code> (Google Ads cookies). States: <code>granted</code> or <code>denied</code>.</p><p>When <code>analytics_storage</code> is denied, GA4 doesn't set or read cookies. Pings are still sent but without identifiers. Google then uses <strong>Behavioral Modeling</strong> (ML) to fill the gap — estimating the behavior of non-consented users based on consented users' patterns. This gives you more complete data while respecting privacy. Requires a minimum threshold of consented traffic for modeling to work.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">7. Explain the GA4 BigQuery export. What does the data look like?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GA4 offers free daily export to BigQuery (streaming export is GA4 360 only). The export creates tables named <code>events_YYYYMMDD</code> (daily shards) with event-level rows.</p><p>Schema: Each row = one event. Columns include <code>event_name</code>, <code>event_timestamp</code>, <code>user_pseudo_id</code>, <code>event_params</code> (REPEATED RECORD — nested array of key-value pairs), <code>user_properties</code> (REPEATED RECORD), <code>device</code> (RECORD — category, model, OS), <code>geo</code> (RECORD — country, city, region), <code>traffic_source</code>, etc.</p><p>The nested structure means you need <code>UNNEST()</code> to extract parameter values — this is the main SQL challenge. Example: <code>SELECT (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location') AS page</code>.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">8. How do you set up cross-domain tracking in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Cross-domain tracking in GA4 is simpler than UA. In Admin → Data Streams → Web → Configure tag settings → Configure your domains. Add all domains you want to track together. GA4 automatically appends a <code>_gl</code> parameter to links between those domains, passing the client ID.</p><p>Key points: Both domains must use the same GA4 Measurement ID. The <code>_gl</code> parameter contains the cookie value decorated in the URL. No need for allowLinker or autoLink like in UA. For GTM implementation, configure this in the GA4 Configuration tag or Google Tag settings.</p><p>Gotcha: some cookie consent tools or URL cleaning scripts may strip the <code>_gl</code> parameter, breaking cross-domain. Verify in real-time reports or DebugView.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">9. What are Audiences in GA4 and how do Predictive Audiences work?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Audiences are groups of users based on conditions you define — events they triggered, user properties, dimensions. Audiences automatically export to linked Google Ads accounts for remarketing. They're also available in reports as comparison segments.</p><p><strong>Predictive Audiences</strong> use Google's ML to identify users likely to perform (or not perform) specific actions in the next 7 days. Three built-in predictive metrics: (1) Purchase probability, (2) Churn probability, (3) Predicted revenue. You can create audiences like "Likely 7-day purchasers" or "Likely 7-day churners."</p><p>Requirements: Minimum 1,000 positive and 1,000 negative examples in the last 28 days (i.e., enough purchasers AND non-purchasers). GA4 will show a prediction quality score. Works best for ecommerce with regular purchase events.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">10. How does GA4 attribution work? What models are available?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GA4 uses <strong>Data-Driven Attribution (DDA)</strong> as the default model. DDA uses machine learning to analyze your actual conversion paths and assign credit based on how each touchpoint contributes to conversions. It considers the order, frequency, and timing of touchpoints.</p><p>Other available models (though Google has simplified to primarily DDA and last-click): Cross-channel last click (default for some reports), Cross-channel first click, Cross-channel linear, Cross-channel position-based, Cross-channel time decay. Google deprecated most of these in 2023 in favor of DDA, but understanding them is still asked in interviews.</p><p>Lookback windows: 30 days for acquisition, 90 days for all other conversions (configurable). Attribution applies to conversion reports and the Model comparison tool.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">11. What is User-ID in GA4 and why does it matter?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>User-ID lets you assign your own identifier (like a CRM ID or login ID) to users. This enables cross-device measurement — the same user on phone and laptop is counted as one user if they log in on both.</p><p>Set via <code>gtag('config', 'G-XXXXX', { 'user_id': 'USER123' })</code> or in GTM via the GA4 Configuration tag. GA4 uses an identity hierarchy: User-ID (most reliable) → Google Signals (logged-in Google users) → Device ID (cookie-based). This is configured in Admin → Reporting Identity.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">12. What are Data Streams? How do they replace UA Views?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Data Streams are the data collection endpoints in GA4 — one per platform: Web (Measurement ID: G-XXXXX), iOS (App ID), Android (App ID). Multiple streams can feed the same property, giving you unified web + app reporting.</p><p>Views in UA were filtered perspectives of data (e.g., exclude internal traffic). GA4 doesn't have Views. Instead: use report filters, data filters (Admin → Data Settings → Data Filters for internal traffic), or Comparisons/Segments in reports. For access control, use custom report collections.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">13. How do you track ecommerce in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GA4 has a recommended ecommerce event schema. Key events in order: <code>view_item_list</code> → <code>select_item</code> → <code>view_item</code> → <code>add_to_cart</code> → <code>view_cart</code> → <code>begin_checkout</code> → <code>add_shipping_info</code> → <code>add_payment_info</code> → <code>purchase</code>.</p><p>Each event carries an <code>items</code> array with product details: <code>item_id</code>, <code>item_name</code>, <code>item_category</code>, <code>price</code>, <code>quantity</code>, <code>item_brand</code>. The <code>purchase</code> event also includes <code>transaction_id</code>, <code>value</code>, <code>currency</code>, <code>tax</code>, <code>shipping</code>.</p><p>Implementation: Push to dataLayer → GTM reads and sends to GA4 as an event tag. Follow the exact recommended parameter names to unlock built-in ecommerce reports.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">14. What is data sampling in GA4 and how do you avoid it?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Standard reports in GA4 are NOT sampled — they use pre-aggregated data. However, <strong>Explorations</strong> (ad hoc analysis) CAN be sampled when the data volume is high. GA4 standard properties sample above ~10M events. GA4 360 has higher thresholds.</p><p>How to avoid: (1) Use standard reports instead of Explorations when possible. (2) Shorten the date range. (3) Reduce dimension/metric combinations. (4) Export to BigQuery and run queries there — BigQuery processes the full dataset with zero sampling. This is the primary reason companies export to BigQuery.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">15. What is Google Signals?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Google Signals uses data from users who are signed into their Google accounts and have Ads Personalization enabled. When activated in GA4, it enables: (1) Cross-device reporting — see the same user across devices. (2) Demographics and interests data. (3) Remarketing audience building for Google Ads.</p><p>Enabling Google Signals can cause data thresholding — Google hides rows with low user counts to protect privacy. If you see "(other)" or missing data in reports, this might be the cause. You can switch Reporting Identity from "Blended" to "Device-based" to avoid thresholding.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">16. How do you debug GA4 tracking?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Multiple methods: (1) <strong>GA4 DebugView</strong> (Admin → DebugView) — shows real-time event stream for debug-enabled devices. Enable via GTM debug_mode parameter, GA Debugger Chrome extension, or <code>gtag('config', 'G-XXXXX', { 'debug_mode': true })</code>. (2) <strong>GTM Preview Mode / Tag Assistant</strong> — see which tags fired and what data was sent. (3) <strong>Real-time report</strong> — quick verification that events are arriving. (4) <strong>Browser DevTools</strong> — Network tab, filter for "collect" to see the GA4 collect requests and their payloads. (5) <strong>BigQuery</strong> — for post-hoc verification that data landed correctly.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">17. How would you design a GA4 measurement plan for an ecommerce site?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Framework: (1) <strong>Define business objectives:</strong> Increase revenue, improve conversion rate, reduce cart abandonment. (2) <strong>Identify KPIs:</strong> Revenue, conversion rate, average order value, cart abandonment rate, ROAS. (3) <strong>Map the user journey:</strong> Awareness → Consideration → Purchase → Retention. (4) <strong>Define events per stage:</strong> Land (<code>page_view</code>) → Browse (<code>view_item_list</code>, <code>select_item</code>) → Product (<code>view_item</code>) → Cart (<code>add_to_cart</code>) → Checkout (<code>begin_checkout</code>, <code>add_payment_info</code>) → Purchase (<code>purchase</code>) → Return (<code>refund</code>). (5) <strong>Custom events:</strong> <code>coupon_applied</code>, <code>size_guide_viewed</code>, <code>wishlist_add</code>, <code>review_submitted</code>. (6) <strong>Audiences:</strong> Cart abandoners, repeat purchasers, high-value customers, likely churners. (7) <strong>Integrations:</strong> BigQuery export, Google Ads, Looker Studio dashboards. (8) <strong>UTM strategy:</strong> Standardize naming conventions across all campaigns.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">18. What are Comparisons in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Comparisons allow you to filter and compare subsets of data side by side in standard reports — similar to applying a segment. You can compare up to 4 conditions simultaneously. Example: Mobile users vs Desktop users, India traffic vs US traffic, Organic vs Paid.</p><p>Unlike UA segments, Comparisons are temporary (session-level) and don't affect all reports automatically — you add them per report. For permanent, cross-report segments, create Audiences instead.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">19. What are GA4 Subproperties and Roll-up Properties (360 only)?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Subproperties:</strong> Filtered versions of a source property. Like Virtual Report Suites in AA. Filter events based on conditions (e.g., only events from India). Each subproperty has its own settings, user access, and export capabilities. Use for: giving regional teams access to only their data.</p><p><strong>Roll-up Properties:</strong> Aggregate data from multiple source properties into one. Like a global report suite. Useful for: enterprise-wide reporting across brands/regions. Both features require GA4 360 (paid).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">20. How does GA4 handle data retention and deletion?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GA4 has two retention settings: 2 months or 14 months (Admin → Data Settings → Data Retention). This affects Explorations only — standard reports use aggregated data that isn't affected by retention.</p><p>Important: retention applies to user-level and event-level data used in Explorations. After the retention period, data is deleted and Explorations over older date ranges will be incomplete. BigQuery export is not affected — once exported, it's yours forever. This is another reason to set up BigQuery export immediately.</p><p>Data deletion requests: GA4 supports user deletion via User Explorer or the User Deletion API. For GDPR "right to erasure" compliance.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">21. What is Server-Side Tagging in the context of GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Server-side tagging uses a server-side GTM container running on Google Cloud (or another cloud). Instead of the browser sending hits directly to GA4, Google Ads, Facebook, etc., it sends ONE request to your server container, which then routes data to each platform server-side.</p><p>Benefits for GA4: (1) First-party cookies set by your server last longer (1+ year vs 7 days for ITP-affected client-side cookies). (2) Better data accuracy — ad blockers don't block requests to your domain. (3) Reduced client-side JavaScript = faster page loads. (4) Better privacy control — you decide what data goes where.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">22. How would you build a custom attribution model using GA4 + BigQuery?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Approach: (1) Export GA4 data to BigQuery. (2) Build conversion paths using <code>session_start</code> events and <code>traffic_source</code>/<code>collected_traffic_source</code> fields. (3) For each user, construct the full touchpoint sequence leading to a <code>purchase</code> event. (4) Apply your model in SQL:</p><pre>-- Simple last-touch model
+WITH conversion_paths AS (
+  SELECT user_pseudo_id,
+    event_timestamp,
+    collected_traffic_source.manual_source AS source,
+    collected_traffic_source.manual_medium AS medium,
+    event_name
+  FROM `project.analytics_XXXXXX.events_*`
+  WHERE event_name IN ('session_start', 'purchase')
+)
+-- Join sessions to purchases, take the last session before purchase
+-- Assign full credit to that source/medium</pre><p>For Shapley value or Markov chain attribution, you'd use Python (e.g., ChannelAttribution library) on the exported BigQuery data. This is advanced but a huge differentiator in interviews.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">23. How does GA4 handle internal traffic filtering?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>In Admin → Data Streams → Web → Define internal traffic. You define IP addresses/ranges and assign a <code>traffic_type</code> parameter value (default: "internal"). Then in Admin → Data Settings → Data Filters, create a filter to exclude events where <code>traffic_type = internal</code>. Filters can be in Testing mode (data is tagged but not excluded) or Active mode (data excluded). Always test first before activating.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">24. What is the Measurement Protocol in GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Measurement Protocol lets you send events to GA4 via HTTP POST requests directly — without a browser or app SDK. Use cases: (1) Track offline conversions (POS system → GA4). (2) Track server-side events (subscription renewed, payment processed). (3) Track IoT devices.</p><p>Requires: Measurement ID + API Secret (generated in Admin). Events sent via MP won't have standard web context (no cookies, no device info unless manually provided). Important: MP events have limitations — they don't trigger Google Ads conversions by default and require client_id or user_id for user association.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">25. Compare GA4 Standard vs GA4 360. When is 360 justified?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>GA4 360 additions:</strong> Higher data limits (50B events/month vs 25M events/day collection), more custom dimensions (125 vs 50), subproperties, roll-up properties, BigQuery streaming export (real-time vs daily), guaranteed SLAs, dedicated support, higher Exploration unsampled limits, integration with SalesForce, Display & Video 360, and Search Ads 360.</p><p>Justified when: very high traffic volume exceeding free limits, need for real-time BigQuery data (critical for real-time dashboards/ML), enterprise requiring SLAs and support, organizations needing subproperties for complex access control, or full Google Marketing Platform users. Pricing: typically ₹50L–₹1.5Cr+/year depending on volume.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= GTM ========================= -->
+  <div class="section" id="sec-gtm">
+    <div class="section-header">
+      <span class="section-tag tag-google">Google Tag Manager</span>
+      <h2>GTM — 20 Questions</h2>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">1. What are Tags, Triggers, and Variables in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Tags:</strong> Code snippets that execute when triggered — GA4 events, Google Ads conversions, Facebook pixels, custom HTML. <strong>Triggers:</strong> Conditions that determine when tags fire — page views, clicks, form submissions, custom events, timers, scroll depth, element visibility. <strong>Variables:</strong> Named placeholders that hold values used by tags and triggers — Page URL, Click Text, Data Layer values, cookies, custom JavaScript functions.</p><p>Mental model: Trigger = "when", Variable = "what data", Tag = "send where and what".</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">2. What is the dataLayer? Why is it important?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>The <code>dataLayer</code> is a JavaScript array that serves as the data bridge between your website and GTM. Developers push structured data into it; GTM reads from it via Data Layer Variables.</p><p>Why it matters: Without a dataLayer, you'd have to scrape data from the DOM (fragile, breaks when HTML changes). The dataLayer provides a clean API — structured, reliable, and decoupled from the page's visual structure. It's the foundation of any professional analytics implementation.</p><pre>// Push structured ecommerce data
+dataLayer.push({
+  event: 'add_to_cart',
+  ecommerce: {
+    items: [{
+      item_name: 'Kurta Set',
+      item_id: 'KS-2026-BLU',
+      price: 1299,
+      currency: 'INR',
+      quantity: 1
+    }]
+  }
+});</pre></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">3. What is the difference between Page View, DOM Ready, and Window Loaded triggers?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>These fire at different stages of page loading: (1) <strong>Page View (gtm.js):</strong> Fires as soon as GTM loads — earliest possible. Use for: GA4 config tag, tags that don't need DOM elements. (2) <strong>DOM Ready (gtm.dom):</strong> Fires when the DOM is fully parsed (but images/iframes may still be loading). Use for: click listeners, DOM element variables, tags that need to read the page structure. (3) <strong>Window Loaded (gtm.load):</strong> Fires when everything is loaded (images, iframes, stylesheets). Use for: tags that need the full page, non-critical tags you want to defer for performance.</p><p>Loading order: Page View → DOM Ready → Window Loaded. Most GA4 tags should fire on Page View or DOM Ready.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">4. How do you track button clicks in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Steps: (1) Enable built-in Click variables (Click Element, Click Classes, Click ID, Click URL, Click Text) in Variables. (2) Create a trigger: type = "All Elements" or "Just Links", fire on "Some Clicks" where Click Text = "Buy Now" (or Click ID = "cta-buy", or Click Classes contains "btn-primary"). (3) Create a GA4 Event tag: event name = "cta_click", parameters: button_text = {{Click Text}}, page = {{Page Path}}. (4) Attach the trigger to the tag. (5) Test in Preview mode — click the button, verify in Tag Assistant.</p><p>For dynamic buttons (React/Angular rendered), you may need Click Element matches CSS selector: <code>button[data-action="buy"]</code> — more reliable than text-based matching.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">5. What is a Lookup Table variable? When would you use it?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A Lookup Table maps input values to output values — like a switch statement. You define: Input Variable (e.g., {{Page Path}}) and a table of path → output pairs.</p><pre>Input: {{Page Path}}
+/          → Homepage
+/products  → Product Listing
+/cart      → Cart
+/checkout  → Checkout
+Default    → Other</pre><p>Use case: Derive a "Page Section" or "Page Type" from the URL without asking developers to add it to the dataLayer. Useful for setting GA4 content_group or AA s.channel based on URL patterns. For complex matching, use a RegEx Table instead.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">6. Explain the concept of Tag Sequencing in GTM.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Tag Sequencing lets you define a Setup Tag (fires before) and a Cleanup Tag (fires after) for any tag. It guarantees execution order.</p><p>Use case: Before sending a GA4 purchase event, you need to run a Custom HTML tag that calculates and pushes additional dataLayer values (like cart value in USD, or a custom dimension). Set that as a Setup tag for the GA4 Event tag. Option: "Don't fire [main tag] if Setup Tag fails" — adds safety.</p><p>Without sequencing, tags on the same trigger fire in unpredictable order. Tag sequencing is better than trying to control order via different trigger types.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">7. How would you implement scroll depth tracking in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Two approaches: (1) <strong>GA4 Enhanced Measurement</strong> — automatically tracks 90% scroll depth. Simple but only one threshold. (2) <strong>Custom GTM implementation</strong> — more granular.</p><p>Custom approach: Create a Scroll Depth trigger → Vertical Scroll Depths → Percentages: 25, 50, 75, 100. Enable built-in Scroll variables (Scroll Depth Threshold, Scroll Direction). Create GA4 Event tag: event name = "scroll_depth", parameters: percent = {{Scroll Depth Threshold}}, page = {{Page Path}}. Set trigger to the scroll depth trigger.</p><p>Pro tip: disable Enhanced Measurement scroll tracking if you implement custom — otherwise you'll double-count the 90% threshold.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">8. What is Server-Side GTM? How is it different from web GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Web GTM</strong> runs in the user's browser. <strong>Server-Side GTM (sGTM)</strong> runs on a cloud server (App Engine or Cloud Run on GCP). The browser sends data to your sGTM endpoint (on your first-party domain), and sGTM routes it to GA4, Google Ads, Facebook, etc.</p><p>Architecture: Browser → your-domain.com/gtm (sGTM) → GA4, Facebook CAPI, etc. This means: (1) First-party context — cookies set by your server survive ITP restrictions. (2) Ad blockers can't block requests to your own domain. (3) Reduced client-side JS — faster pages. (4) Privacy control — filter PII server-side before sending to platforms.</p><p>Cost: sGTM requires a GCP project. Minimum ~$50/month for small sites, scales with traffic. Free tier covers testing.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">9. What is the History Change trigger? When do you use it?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>The History Change trigger fires when the URL fragment (#hash) or HTML5 History API (pushState/replaceState) changes — without a full page reload. This is how Single Page Applications (React, Angular, Vue) navigate between "pages."</p><p>Use case: Track virtual pageviews in SPAs. When the URL changes from /products to /products/shoe-123 via pushState, History Change fires → you send a GA4 page_view event with the new URL. Enable built-in variables: New History Fragment, New History State, Old History Fragment.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">10. How do you handle consent management in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GTM supports Consent Mode natively. Steps: (1) <strong>Default consent state:</strong> Set in the Consent Initialization trigger (fires before all other triggers). Set <code>analytics_storage</code>, <code>ad_storage</code>, etc. to "denied" by default. (2) <strong>CMP integration:</strong> Your Consent Management Platform (OneTrust, Cookiebot, etc.) fires a Custom Event when user grants consent → trigger updates consent to "granted" via the gtag consent update command. (3) <strong>Tag settings:</strong> Each tag can have Built-In Consent Checks — require "analytics_storage" = granted before firing. Tags without consent automatically respect the consent state.</p><p>Advanced: use "Consent Initialization" trigger for the default command, and "Custom Event" trigger from CMP for the update. Consent state persists across pages using the CMP's cookie.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">11. What is the GTM Preview mode?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Preview mode (formerly Debug mode) opens the Tag Assistant companion in a new browser tab. It connects to your site and shows real-time information: which tags fired (and which didn't), which triggers activated, all variable values, dataLayer state at each event, and the full event timeline. Essential for testing before publishing. Only visible to you — doesn't affect live site visitors.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">12. How do you track form submissions in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Three approaches: (1) <strong>Form Submission trigger:</strong> Built-in trigger type. Can check validation (Wait for Tags + Check Validation). Fires on form submit event. Filter by Form ID, Form Classes, or Form URL. (2) <strong>Custom Event via dataLayer:</strong> Developer pushes a custom event on successful form submission — more reliable, handles AJAX forms that don't trigger native submit events. (3) <strong>Element Visibility trigger:</strong> Track when the "thank you" message appears (for forms that show success in-page without redirect).</p><p>The dataLayer approach is most reliable for modern AJAX/SPA forms. The native Form Submission trigger works well for traditional HTML forms.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">13. What are GTM Workspaces?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Workspaces allow multiple people to work on the same GTM container simultaneously without conflicts. Each workspace is an independent branch of changes. When ready, changes are synced, conflicts resolved, and published.</p><p>Free GTM accounts get 3 workspaces. GTM 360 gets unlimited. Best practice: one workspace per project/ticket — "Add scroll tracking" in Workspace A, "Update ecommerce tags" in Workspace B. Merge and publish separately.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">14. How do you implement Enhanced Ecommerce via GTM for GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Step-by-step: (1) <strong>Define dataLayer schema</strong> with developers — follow GA4's recommended ecommerce events and parameters. (2) <strong>Create Data Layer Variables</strong> in GTM: <code>ecommerce.items</code>, <code>ecommerce.transaction_id</code>, <code>ecommerce.value</code>, <code>ecommerce.currency</code>. (3) <strong>Create Custom Event triggers</strong> for each ecommerce event: trigger when Event equals "view_item", "add_to_cart", "purchase", etc. (4) <strong>Create GA4 Event tags</strong>: for each event, set event name and map parameters from Data Layer Variables. For the items array, use the <code>items</code> parameter mapped to the <code>ecommerce.items</code> Data Layer Variable. (5) <strong>Clear ecommerce object</strong> — push <code>{ ecommerce: null }</code> before each new ecommerce push to prevent stale data. (6) <strong>Test thoroughly</strong> in Preview mode + DebugView.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">15. What is a Custom JavaScript variable in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A Custom JavaScript variable is a user-defined variable that returns a value from a JavaScript function. It must be an anonymous function that returns a value.</p><pre>// Extract subdomain from hostname
+function() {
+  return window.location.hostname.split('.')[0];
+}
+
+// Check if user is logged in
+function() {
+  return document.cookie.indexOf('logged_in=true') !== -1
+    ? 'logged_in' : 'anonymous';
+}
+
+// Calculate reading time from article length
+function() {
+  var article = document.querySelector('.article-body');
+  if (!article) return 'unknown';
+  var words = article.innerText.split(/\s+/).length;
+  return Math.ceil(words / 200) + ' min';
+}</pre><p>Powerful for deriving values that aren't in the dataLayer. But prefer dataLayer pushes over DOM scraping for reliability.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">16. Explain GTM container loading and its impact on page performance.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GTM container loads asynchronously by default — it doesn't block page rendering. However, performance considerations: (1) Container file size — more tags/variables = bigger file. Keep containers lean. (2) Tag execution — Custom HTML tags with heavy JS can slow the page. Use DOM Ready or Window Loaded triggers for non-critical tags. (3) Tag firing rules — reduce unnecessary tag fires with precise triggers. (4) Third-party scripts loaded via GTM (Facebook, LinkedIn, etc.) add network requests. (5) Use Tag Monitoring to identify slow tags.</p><p>Best practices: Minimize Custom HTML tags, use async loading where possible, defer non-essential tags to Window Loaded, and monitor with Google PageSpeed Insights and Web Vitals.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">17. What is a Trigger Group?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A Trigger Group fires only when ALL specified triggers within it have fired at least once. It's an AND condition across multiple triggers.</p><p>Example: Fire a tag only after the user has (1) scrolled 50% AND (2) spent 30 seconds on page AND (3) clicked a specific element. Create a Trigger Group containing all three triggers. The tag fires when all conditions have been met in the same page view. Useful for engagement-based triggers and qualified user interactions.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">18. How would you migrate a client from hardcoded tags to GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Migration plan: (1) <strong>Audit:</strong> Document all existing tags on the site — use tools like Tag Inspector or manual code review. List every tag, its purpose, when it fires, and what data it sends. (2) <strong>Replicate in GTM:</strong> Create equivalent tags, triggers, and variables in GTM. Don't change logic — replicate first. (3) <strong>DataLayer specification:</strong> Define what dataLayer pushes are needed from developers. Prioritize — start with what's already available, add custom pushes in phases. (4) <strong>Parallel run:</strong> Deploy GTM alongside existing hardcoded tags. Validate data parity using test pages. (5) <strong>Cutover:</strong> Remove hardcoded tags from source code, leaving only GTM snippet. (6) <strong>Monitor:</strong> Compare 2 weeks of data before/after — check key metrics for discrepancies.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">19. What are Blocking Triggers (exceptions) in GTM?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Blocking triggers (exceptions) prevent a tag from firing even if its firing trigger conditions are met. They take priority over firing triggers.</p><p>Example: Fire GA4 page_view on All Pages EXCEPT the /thank-you page (which has its own conversion tag). Add "All Pages" as firing trigger, add a trigger for "Page Path equals /thank-you" as an exception. Use cases: exclude internal IPs, exclude specific pages, prevent double-firing scenarios.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">20. How do you handle cross-domain tracking setup in GTM for GA4?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>In GTM: (1) Use the Google Tag (formerly GA4 Configuration tag). (2) In tag settings → Configuration Settings → Fields to set, add the linker configuration. Actually in newer GTM setups, cross-domain is configured directly in the GA4 Admin (Data Streams → Configure tag settings → Configure your domains). (3) Add all domains that should share the same user session. (4) GTM/gtag automatically appends the <code>_gl</code> parameter to outbound links matching those domains. (5) On the destination domain, the same GA4 config reads the <code>_gl</code> parameter and links the session.</p><p>Test by: clicking a cross-domain link, checking the URL for <code>_gl</code> parameter, verifying in GA4 Real-time that the session continues (same session_id) on both domains.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= LOOKER STUDIO ========================= -->
+  <div class="section" id="sec-looker">
+    <div class="section-header">
+      <span class="section-tag tag-google">Looker Studio</span>
+      <h2>Looker Studio — 10 Questions</h2>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">1. What is Looker Studio and what data sources does it support?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Looker Studio (formerly Google Data Studio) is a free, cloud-based BI/dashboarding tool. Native connectors: GA4, Google Ads, Search Console, YouTube Analytics, Google Sheets, BigQuery, MySQL, PostgreSQL, Cloud Spanner, and more. Community connectors (via Supermetrics, Funnel.io, etc.): Facebook Ads, LinkedIn Ads, Adobe Analytics, Salesforce, HubSpot — 800+ sources.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">2. What is Data Blending? How does it work?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Data Blending joins two or more data sources on a shared key (join key) to create a combined view. It performs a LEFT OUTER JOIN — all rows from the left source, matching rows from the right. Common join keys: Date, Campaign Name, Country.</p><p>Example: Blend GA4 data (sessions, conversions) with Google Sheets (offline revenue data) on Date + Campaign Name to see online and offline metrics together. Limitations: max 5 sources in one blend, only LEFT JOIN, performance degrades with large datasets. For complex joins, use BigQuery as an intermediary.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">3. What are Calculated Fields? Give useful examples.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Calculated fields are custom dimensions or metrics created using formulas. Can be created at data source level (available in all reports using that source) or chart level (local to that chart).</p><p>Examples: (1) <strong>Channel grouping:</strong> <code>CASE WHEN REGEXP_MATCH(Medium, "^(cpc|ppc|paid)$") THEN "Paid" WHEN Medium = "organic" THEN "Organic" ELSE "Other" END</code>. (2) <strong>Conversion rate:</strong> <code>Conversions / Sessions</code>. (3) <strong>Cost per acquisition:</strong> <code>Cost / Conversions</code>. (4) <strong>Date formatting:</strong> <code>TODATE(Date, '%Y%m%d', '%d %b %Y')</code>. (5) <strong>Percentage of total:</strong> Use the "% of Total" option in metric settings.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">4. How do you make Looker Studio dashboards interactive?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Interactive controls: (1) <strong>Date range control</strong> — let viewers pick date ranges. (2) <strong>Drop-down list / List control</strong> — filter by dimension values (country, campaign, channel). (3) <strong>Search bar</strong> — for text-based filtering. (4) <strong>Slider</strong> — filter numeric ranges. (5) <strong>Checkbox</strong> — toggle dimension values. (6) <strong>Parameters</strong> — user-configurable inputs that change calculations or data (e.g., target input for goal vs actual charts). (7) <strong>Cross-filtering</strong> — clicking a chart element filters other charts on the page.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">5. What are Parameters in Looker Studio?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Parameters are user-defined inputs that report viewers can change to modify the report dynamically. Unlike filters (which filter rows), parameters inject values into calculated fields and queries.</p><p>Example: Create a "Target Revenue" parameter (number type). Report viewer enters ₹500,000. Create a calculated field: <code>CASE WHEN Revenue >= Target_Revenue THEN "Above Target" ELSE "Below Target" END</code>. The chart updates based on whatever target the viewer sets. Another use: metric selector — a parameter where the viewer chooses which metric to display (Sessions, Users, Revenue), and the chart dynamically shows that metric.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">6. What is the difference between report-level and chart-level data sources?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>A <strong>report-level data source</strong> is added to the report and available to all charts by default. Filters and controls at the page/report level apply to all charts using that source. A <strong>chart-level data source</strong> (or overridden source) is set specifically for one chart — it ignores report-level filters unless explicitly configured. Useful when one chart needs a different source or different date range than the rest.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">7. How do you use BigQuery as a Looker Studio data source effectively?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>BigQuery as a source offers speed and flexibility over direct GA4 connector. Approaches: (1) <strong>Direct table connection:</strong> Point Looker Studio at a BigQuery table or view. Best for pre-aggregated data. (2) <strong>Custom Query:</strong> Write SQL in Looker Studio's data source config — the query runs when the report loads. Can use parameters for dynamic filtering. (3) <strong>Materialized views or scheduled queries:</strong> Pre-compute heavy aggregations on a schedule, connect Looker Studio to the output table — fastest performance.</p><p>Tip: For GA4 BigQuery data, create a summary table via scheduled query (daily) that pre-aggregates sessions, events, and conversions by date/source/medium. Connect Looker Studio to this summary table instead of the raw events tables — dramatically faster.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">8. How do you handle multi-currency reporting in Looker Studio?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>If you have revenue data in multiple currencies: (1) Create a Google Sheet with daily exchange rates (or use an API to populate it). (2) Blend your GA4/sales data with the exchange rate sheet on Date + Currency. (3) Create a calculated field: <code>Revenue_Local * Exchange_Rate_to_INR</code>. (4) Use this normalized revenue field across all charts.</p><p>Alternative: do the conversion in BigQuery before connecting to Looker Studio — more reliable and faster for large datasets.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">9. How do you share and embed Looker Studio reports?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Sharing: (1) Share via link (view or edit access, like Google Docs). (2) Email scheduled delivery (PDF or CSV, daily/weekly/monthly). (3) Embed via iframe in websites/portals. (4) Download as PDF.</p><p>Access control: Viewer can't see the data source or edit. Editor can modify charts and layout. Owner manages sharing. Reports connected to BigQuery require the viewer to have BigQuery access unless you use "data credentials" (Owner's credentials vs Viewer's credentials).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">10. How would you build an executive marketing dashboard in Looker Studio?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Framework: (1) <strong>Page 1 — Executive Summary:</strong> Scorecards for top KPIs (Revenue, Sessions, Conversion Rate, ROAS) with comparison to last month/year. Trend line for revenue. Simple, high-level. (2) <strong>Page 2 — Acquisition:</strong> Channel performance table (sessions, conversions, CPA by channel). Source/medium breakdown. Paid vs organic trend. (3) <strong>Page 3 — Engagement:</strong> Top pages by pageviews, engagement rate by landing page, funnel visualization (homepage → product → cart → purchase). (4) <strong>Page 4 — Conversions:</strong> Ecommerce performance, top products, average order value trend, conversion rate by device. (5) <strong>Controls:</strong> Date range selector + country filter on every page.</p><p>Data sources: GA4 for web data, Google Ads for ad spend (blend with GA4 for ROAS), Google Sheets for targets. Use BigQuery for speed if data volume is high.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= GCP ========================= -->
+  <div class="section" id="sec-gcp">
+    <div class="section-header">
+      <span class="section-tag tag-gcp">GCP / BigQuery</span>
+      <h2>GCP & BigQuery — 15 Questions</h2>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">1. What is BigQuery and how is it different from traditional databases?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>BigQuery is Google's serverless, petabyte-scale data warehouse. Key differences: (1) <strong>Serverless:</strong> No infrastructure to manage — no indexes, no tuning, no capacity planning. (2) <strong>Columnar storage:</strong> Only scans columns you query, not full rows. Fast for analytics queries. (3) <strong>Massive parallelism:</strong> Queries distributed across thousands of machines automatically. (4) <strong>Pay-per-query:</strong> Charged based on data scanned ($5/TB), not uptime. (5) <strong>Separation of storage and compute:</strong> Store cheaply, compute on demand. Ideal for analytics workloads (read-heavy, large scans) vs operational databases (OLTP — many small read/writes).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">2. What are Partitioned and Clustered tables? Why use them?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p><strong>Partitioning:</strong> Divides a table into segments based on a column — typically date. When you query <code>WHERE date = '2026-07-01'</code>, BigQuery only scans that partition, not the entire table. Saves cost and speeds up queries. Types: time-based (TIMESTAMP/DATE), integer range, or ingestion time.</p><p><strong>Clustering:</strong> Sorts data within partitions by up to 4 columns. When you filter on clustered columns, BigQuery skips irrelevant blocks. Example: partition by date, cluster by event_name, user_pseudo_id. A query filtering both date and event_name benefits from both optimizations.</p><p>GA4 export creates daily sharded tables (events_YYYYMMDD). Combine with clustering on event_name for optimal performance on typical analytics queries.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">3. Explain UNNEST in BigQuery with a GA4 example.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GA4 BigQuery export stores event parameters as a REPEATED (array) field. To access individual parameter values, you must flatten the array using <code>UNNEST()</code>.</p><pre>-- Method 1: Subquery (most common for GA4)
+SELECT
+  event_name,
+  (SELECT value.string_value
+   FROM UNNEST(event_params)
+   WHERE key = 'page_location') AS page
+FROM `project.analytics_XXXXXXX.events_20260101`
+
+-- Method 2: CROSS JOIN with UNNEST
+SELECT
+  e.event_name,
+  p.key,
+  p.value.string_value
+FROM `project.analytics_XXXXXXX.events_20260101` e,
+UNNEST(e.event_params) AS p
+WHERE p.key IN ('page_location', 'page_title')</pre><p>Method 1 is cleaner when you need specific parameters. Method 2 is useful when exploring all parameters.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">4. How do you calculate sessions and session-level metrics from GA4 raw data in BigQuery?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GA4 stores event-level data, not session-level. To reconstruct sessions:</p><pre>-- Sessionize GA4 data
+WITH sessions AS (
+  SELECT
+    user_pseudo_id,
+    (SELECT value.int_value FROM UNNEST(event_params)
+     WHERE key = 'ga_session_id') AS session_id,
+    (SELECT value.int_value FROM UNNEST(event_params)
+     WHERE key = 'ga_session_number') AS session_number,
+    MIN(event_timestamp) AS session_start,
+    MAX(event_timestamp) AS session_end,
+    COUNT(*) AS event_count,
+    COUNTIF(event_name = 'page_view') AS pageviews,
+    COUNTIF(event_name = 'purchase') AS purchases,
+    MAX((SELECT value.int_value FROM UNNEST(event_params)
+         WHERE key = 'engaged_session_event')) AS is_engaged
+  FROM `project.analytics_XXXXXXX.events_*`
+  WHERE _TABLE_SUFFIX BETWEEN '20260101' AND '20260107'
+  GROUP BY user_pseudo_id, session_id, session_number
+)
+SELECT
+  COUNT(*) AS total_sessions,
+  COUNTIF(is_engaged = 1) / COUNT(*) AS engagement_rate,
+  SUM(purchases) / COUNT(*) AS conversion_rate
+FROM sessions</pre></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">5. What are Window Functions? Give an analytics use case.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Window functions perform calculations across a set of rows related to the current row — without collapsing them (unlike GROUP BY). Common functions: <code>ROW_NUMBER()</code>, <code>RANK()</code>, <code>LAG()</code>, <code>LEAD()</code>, <code>SUM() OVER()</code>, <code>AVG() OVER()</code>.</p><pre>-- Month-over-month revenue comparison
+SELECT
+  month,
+  revenue,
+  LAG(revenue) OVER (ORDER BY month) AS prev_month_revenue,
+  ROUND((revenue - LAG(revenue) OVER (ORDER BY month))
+    / LAG(revenue) OVER (ORDER BY month) * 100, 1) AS mom_growth_pct
+FROM monthly_revenue
+ORDER BY month</pre><p>Use cases: running totals, moving averages, ranking products by revenue, calculating time between events for the same user, sessionization.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">6. How do you build a user funnel analysis in BigQuery from GA4 data?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><pre>WITH funnel AS (
+  SELECT
+    user_pseudo_id,
+    COUNTIF(event_name = 'page_view') > 0 AS viewed_page,
+    COUNTIF(event_name = 'view_item') > 0 AS viewed_product,
+    COUNTIF(event_name = 'add_to_cart') > 0 AS added_to_cart,
+    COUNTIF(event_name = 'begin_checkout') > 0 AS began_checkout,
+    COUNTIF(event_name = 'purchase') > 0 AS purchased
+  FROM `project.analytics_XXXXXXX.events_*`
+  WHERE _TABLE_SUFFIX BETWEEN '20260601' AND '20260630'
+  GROUP BY user_pseudo_id
+)
+SELECT
+  COUNT(*) AS total_users,
+  COUNTIF(viewed_page) AS step1_page_view,
+  COUNTIF(viewed_product) AS step2_view_product,
+  COUNTIF(added_to_cart) AS step3_add_to_cart,
+  COUNTIF(began_checkout) AS step4_checkout,
+  COUNTIF(purchased) AS step5_purchase,
+  ROUND(COUNTIF(purchased) / COUNTIF(viewed_product) * 100, 2)
+    AS product_to_purchase_rate
+FROM funnel</pre><p>For sequential funnels (must happen in order), you'd need to check event timestamps and ensure step N happened after step N-1.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">7. How does BigQuery pricing work?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Two pricing models: (1) <strong>On-demand:</strong> $5 per TB scanned per query. First 1 TB/month free. Good for intermittent use. (2) <strong>Flat-rate (now called Editions):</strong> Purchase committed slots (units of computation). Predictable cost regardless of data scanned. Good for heavy, consistent use.</p><p>Storage: Active storage ~$0.02/GB/month. Long-term storage (table not modified for 90 days) ~$0.01/GB/month. 10 GB free storage.</p><p>Cost optimization: Use partitioned tables (scan less data), SELECT only needed columns (columnar = column selection matters), use table previews instead of SELECT *, cache results (same query within 24 hours is free), use LIMIT only after the query (it doesn't reduce scanned data).</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">8. What are Scheduled Queries and how do you use them?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Scheduled Queries run SQL on a recurring basis (hourly, daily, weekly, custom cron). The results are written to a destination table. Use cases: (1) Daily aggregation of GA4 events into a summary table for Looker Studio. (2) Weekly user cohort computation. (3) Daily data quality checks. (4) Incremental updates to reporting tables.</p><p>Supports: append or overwrite destination table, parameterized queries with @run_date, email notifications on failure. Part of BigQuery's Data Transfer Service.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">9. What are CTEs (Common Table Expressions)? Why are they important for analytics queries?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>CTEs are temporary named result sets defined using <code>WITH</code> clauses. They make complex queries readable, debuggable, and maintainable.</p><pre>WITH daily_sessions AS (
+  -- Step 1: Count sessions per day
+  SELECT DATE(TIMESTAMP_MICROS(event_timestamp)) AS date,
+    COUNT(DISTINCT CONCAT(user_pseudo_id,
+      (SELECT value.int_value FROM UNNEST(event_params)
+       WHERE key = 'ga_session_id'))) AS sessions
+  FROM `project.analytics_XXXXXXX.events_*`
+  WHERE _TABLE_SUFFIX BETWEEN '20260601' AND '20260630'
+  GROUP BY date
+),
+daily_revenue AS (
+  -- Step 2: Sum revenue per day
+  SELECT DATE(TIMESTAMP_MICROS(event_timestamp)) AS date,
+    SUM(ecommerce.purchase_revenue) AS revenue
+  FROM `project.analytics_XXXXXXX.events_*`
+  WHERE event_name = 'purchase'
+    AND _TABLE_SUFFIX BETWEEN '20260601' AND '20260630'
+  GROUP BY date
+)
+-- Step 3: Join and calculate
+SELECT s.date, s.sessions, r.revenue,
+  ROUND(r.revenue / s.sessions, 2) AS revenue_per_session
+FROM daily_sessions s
+LEFT JOIN daily_revenue r ON s.date = r.date
+ORDER BY s.date</pre><p>Each CTE is testable independently — run just the CTE to verify its output before building the full query.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">10. How would you build an RFM (Recency, Frequency, Monetary) segmentation model in BigQuery using GA4 data?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><pre>WITH user_rfm AS (
+  SELECT
+    user_pseudo_id,
+    DATE_DIFF(CURRENT_DATE(),
+      MAX(DATE(TIMESTAMP_MICROS(event_timestamp))),
+      DAY) AS recency_days,
+    COUNT(DISTINCT
+      (SELECT value.string_value FROM UNNEST(event_params)
+       WHERE key = 'transaction_id')) AS frequency,
+    SUM(ecommerce.purchase_revenue) AS monetary
+  FROM `project.analytics_XXXXXXX.events_*`
+  WHERE event_name = 'purchase'
+    AND _TABLE_SUFFIX BETWEEN '20260101' AND '20260630'
+  GROUP BY user_pseudo_id
+),
+rfm_scored AS (
+  SELECT *,
+    NTILE(5) OVER (ORDER BY recency_days DESC) AS r_score,
+    NTILE(5) OVER (ORDER BY frequency ASC) AS f_score,
+    NTILE(5) OVER (ORDER BY monetary ASC) AS m_score
+  FROM user_rfm
+)
+SELECT *,
+  CONCAT(CAST(r_score AS STRING), CAST(f_score AS STRING),
+    CAST(m_score AS STRING)) AS rfm_segment,
+  CASE
+    WHEN r_score >= 4 AND f_score >= 4 THEN 'Champions'
+    WHEN r_score >= 3 AND f_score >= 3 THEN 'Loyal'
+    WHEN r_score >= 4 AND f_score <= 2 THEN 'New Customers'
+    WHEN r_score <= 2 AND f_score >= 3 THEN 'At Risk'
+    WHEN r_score <= 2 AND f_score <= 2 THEN 'Lost'
+    ELSE 'Others'
+  END AS segment_name
+FROM rfm_scored</pre><p>This is a high-impact interview answer — it shows SQL skills, analytics thinking, and practical business application.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">11. What is Cloud Functions? Give an analytics use case.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Cloud Functions are serverless, event-triggered code snippets (Python, Node.js, Go). They run in response to triggers: HTTP request, Cloud Storage file upload, Pub/Sub message, Cloud Scheduler (cron).</p><p>Analytics use cases: (1) Process webhook data from a CRM and push to BigQuery. (2) Trigger GA4 Measurement Protocol hits for offline conversions. (3) Automate Looker Studio data refresh by updating Google Sheets on a schedule. (4) Run data quality alerts — query BigQuery, check for anomalies, send Slack notification. (5) Transform and load classification data into Adobe Analytics via FTP.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">12. What is Cloud Storage (GCS)?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>GCS is Google's object storage service (like AWS S3). Used for storing files — CSVs, JSON, images, backups. In analytics context: (1) Stage data files for BigQuery import. (2) Store Adobe Analytics Data Feed exports. (3) Archive old data. (4) Share files between services (Cloud Functions → GCS → BigQuery).</p><p>Storage classes: Standard (frequent access), Nearline (monthly), Coldline (quarterly), Archive (yearly). Lower access frequency = lower cost. Data can be loaded from GCS into BigQuery using <code>bq load</code> or external tables.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">13. Explain a real-time analytics pipeline using GCP.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Architecture: (1) <strong>Data source</strong> — website/app sends events to server-side GTM or a custom HTTP endpoint. (2) <strong>Pub/Sub</strong> — events published to a Pub/Sub topic (message queue). Decouples producers from consumers. (3) <strong>Dataflow</strong> — Apache Beam streaming pipeline subscribes to Pub/Sub, transforms data (parse JSON, enrich with GeoIP, validate schema), and writes to BigQuery streaming insert. (4) <strong>BigQuery</strong> — stores event data in a streaming buffer, available for query within seconds. (5) <strong>Looker Studio / Looker</strong> — real-time dashboards querying BigQuery.</p><p>Alternative simpler path: Server-side GTM → BigQuery streaming via the BigQuery tag in sGTM. No Pub/Sub/Dataflow needed for straightforward analytics.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">14. What is IAM in GCP? Why does it matter for analytics?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>IAM (Identity and Access Management) controls who can do what on which resources. In analytics: (1) BigQuery roles — BigQuery Data Viewer (read data), Data Editor (read+write), Job User (run queries), Admin (full control). (2) Dataset-level permissions — give a team read access to only their dataset. (3) Service Accounts — used by automated pipelines (Cloud Functions, Dataflow) to access BigQuery without a human login.</p><p>Best practice: principle of least privilege. Dashboard viewers get BigQuery Data Viewer. ETL pipelines get Data Editor on specific datasets. Only admins get project-level access.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">15. How would you set up a complete analytics data warehouse on GCP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Layers: (1) <strong>Raw layer:</strong> GA4 BigQuery export (events tables), CRM data loaded from GCS, ad platform data via connectors. (2) <strong>Staging layer:</strong> Scheduled queries that clean, deduplicate, and standardize raw data. Sessionization, user stitching, UTM parsing. (3) <strong>Mart layer:</strong> Pre-aggregated tables for specific use cases — daily_channel_performance, user_ltv, product_performance, funnel_metrics. (4) <strong>Presentation layer:</strong> Looker Studio dashboards, Looker explores, or Sheets connected to mart tables.</p><p>Orchestration: Cloud Scheduler triggers Cloud Functions or Dataflow jobs. Or use Airflow (Cloud Composer) for complex DAGs. Data quality: automated checks after each ETL step — row counts, null checks, freshness alerts via Cloud Monitoring.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= SCENARIO BASED ========================= -->
+  <div class="section" id="sec-scenario">
+    <div class="section-header">
+      <span class="section-tag tag-scenario">Scenario Questions</span>
+      <h2>Scenario-Based Questions — 15 Questions</h2>
+      <p>These are the "tell me how you'd solve this" questions that separate mid-level from senior candidates.</p>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">1. A client says "our GA4 and Adobe Analytics numbers don't match." How do you investigate?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Common causes and investigation steps: (1) <strong>Session definition:</strong> GA4 resets on midnight + UTM change doesn't reset. AA resets on 30-min inactivity, no midnight reset. Compare session counts — differences are expected. (2) <strong>Timezone:</strong> Check both tools use the same timezone for reporting. (3) <strong>Bot filtering:</strong> GA4 filters bots automatically. AA has configurable bot rules — ensure they're enabled. (4) <strong>Tracking coverage:</strong> Check if both tools are deployed on ALL pages. Use a crawler or tag audit tool. (5) <strong>Metric definitions:</strong> "Unique Visitors" in AA vs "Users" in GA4 — same concept but different deduplication methods. (6) <strong>Sampling:</strong> GA4 Explorations may be sampled; AA Workspace is unsampled. (7) <strong>Processing time:</strong> GA4 may take 24–48 hours for data processing. Compare for the same finalized date range. (8) <strong>Consent impact:</strong> If consent mode is enabled in GA4, denied users are modeled, which inflates GA4 numbers vs AA where denied users are just missing.</p><p>Solution: Align definitions, document known differences, and set stakeholder expectations that a 5–15% variance between tools is normal and acceptable.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">2. Conversion rate dropped 20% week-over-week. Walk me through your analysis.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Structured approach: (1) <strong>Verify data quality:</strong> Check if tracking is intact — any tag deployment changes? New release? Is data volume normal? (2) <strong>Decompose:</strong> Conversion Rate = Conversions / Sessions. Did conversions drop, sessions spike, or both? (3) <strong>Segment by channel:</strong> Is it all channels or specific ones? A paid campaign change could inflate low-quality sessions. (4) <strong>Segment by device:</strong> Mobile conversion rate drops often indicate a UX bug. (5) <strong>Segment by geography:</strong> A new market's traffic with low intent dilutes conversion rate. (6) <strong>Funnel analysis:</strong> Where in the funnel is the drop-off? Homepage → Product → Cart → Checkout → Purchase. Identify the specific step. (7) <strong>Page-level analysis:</strong> Check if a specific landing page or product page has issues. (8) <strong>Anomaly detection:</strong> Use AA's Anomaly Detection or look for any site changes (redesign, pricing change, out-of-stock products, payment gateway issues). (9) <strong>External factors:</strong> Holiday ended, competitor sale, market event.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">3. A stakeholder wants to know "which marketing channel has the best ROI." How do you answer?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>This requires nuance — the answer depends on the attribution model. Steps: (1) Pull channel-level data: sessions, conversions, revenue, and cost (from ad platforms). (2) Calculate ROAS (Revenue / Cost) and CPA (Cost / Conversions) for each channel. (3) Show results under multiple attribution models: last-touch ROAS, first-touch ROAS, data-driven ROAS (in GA4) or linear attribution (in AA). (4) Explain that last-touch overvalues bottom-funnel channels (branded search, retargeting) and undervalues top-funnel (display, social awareness). (5) Recommend a blended view — DDA for overall optimization, but acknowledge that upper-funnel channels build the pipeline that lower-funnel channels convert.</p><p>Present it as "it depends on which part of the funnel you're optimizing" rather than a single answer. Suggest incrementality testing for definitive answers on specific channels.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">4. Client wants to personalize their homepage for different user segments. How would you approach this using Adobe Target + RTCDP?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) <strong>Define segments in RTCDP:</strong> New visitors, returning non-purchasers, loyal customers (3+ purchases), cart abandoners, high-value customers (top 20% by LTV). Build these using AEP Segment Builder with both profile attributes and behavioral events. (2) <strong>Activate to Target:</strong> Push RTCDP segments to Adobe Target as audiences via the Edge. (3) <strong>Create Target activity:</strong> Experience Targeting (XT) activity — map each audience to a homepage experience. New visitors see category discovery + signup incentive. Returning non-purchasers see trending products + limited offer. Loyal customers see personalized recommendations + loyalty points status. (4) <strong>Design experiences:</strong> Use VEC to modify hero banner, featured products, and CTA for each audience. (5) <strong>Measure:</strong> Use A4T to compare engagement, conversion rate, and revenue per visitor across each segment's experience vs a control group. (6) <strong>Iterate:</strong> Based on results, refine segments and experiences quarterly.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">5. How would you set up analytics for a mobile app + website?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Cross-platform analytics setup: (1) <strong>GA4:</strong> Create one GA4 property with 3 data streams — Web (GTM), iOS (Firebase SDK), Android (Firebase SDK). GA4 natively unifies web + app data. (2) <strong>Identity:</strong> Implement User-ID across all platforms — when user logs in on app and web, set the same user_id. GA4's identity resolution links the sessions. (3) <strong>Event schema:</strong> Standardize event names and parameters across platforms. A "purchase" event from the app and web should have the same parameters. (4) <strong>Deep linking:</strong> Track app-to-web and web-to-app transitions. Use deferred deep links for attribution. (5) <strong>Adobe stack:</strong> Web SDK for web, AEP Mobile SDK for apps. Both send to AEP Edge Network. Same XDM schema across platforms. RTCDP unifies the profiles. (6) <strong>Reporting:</strong> GA4 reports show unified data. Build Explorations filtering by platform to compare app vs web behavior. BigQuery export includes both sources.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">6. You notice a spike in "direct" traffic in GA4. What could be causing it?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>"Direct" traffic in GA4 is often a catch-all for unattributed traffic. Common causes: (1) <strong>Missing UTMs:</strong> Email campaigns, social posts, or ads without proper UTM tagging get classified as direct. (2) <strong>HTTPS to HTTP:</strong> If referrer is lost due to protocol mismatch (less common now). (3) <strong>App traffic:</strong> In-app browsers may not pass referrer. (4) <strong>Bookmarks and typed URLs:</strong> Actual direct traffic. (5) <strong>Organic search dark traffic:</strong> Some browsers/search engines don't pass referrer. (6) <strong>Redirects:</strong> Redirect chains that strip referrer/UTM parameters. (7) <strong>Offline to online:</strong> QR codes, print materials without UTM parameters. (8) <strong>Browser privacy features:</strong> Safari ITP, Firefox ETP may affect referrer passing.</p><p>Investigation: Check the landing pages of direct traffic — if they're deep pages (not homepage), it's likely misattributed, not actual direct. Fix by ensuring UTMs on all campaigns and checking redirect chains.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">7. How do you handle consent and privacy compliance across Adobe + Google tools?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Comprehensive approach: (1) <strong>Consent collection:</strong> Implement a CMP (OneTrust, Cookiebot) that presents a consent banner, collects preferences, and stores consent state. (2) <strong>Google side:</strong> Use Consent Mode — set default consent to "denied", update to "granted" when user consents. GTM tags respect consent signals. GA4 uses behavioral modeling for denied users. (3) <strong>Adobe side:</strong> Use Web SDK's <code>setConsent</code> API to pass consent to AEP Edge Network. RTCDP enforces consent at the platform level — non-consented profiles are excluded from segment activation. (4) <strong>Data governance:</strong> In AEP, apply DULE labels to sensitive fields. Create policies that block export of labeled data to non-compliant destinations. (5) <strong>Data deletion:</strong> Support DSAR requests via GA4's User Deletion API and AEP's Privacy Service. (6) <strong>Documentation:</strong> Maintain a data processing agreement, privacy policy referencing all tools, and an internal data flow diagram showing what data goes where.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">8. How would you measure the incrementality of a marketing channel?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Incrementality testing measures the true causal impact of a channel — beyond what attribution models show. Methods: (1) <strong>Geo-based lift testing:</strong> Run the campaign in some geographies, hold out others. Compare conversion rates between test and control regions. (2) <strong>Ghost ads / PSA test:</strong> Instead of showing ads to a holdout group, show them public service announcements. Compare conversion rates. (3) <strong>Intent-to-treat:</strong> Compare users who COULD have been exposed vs those who WERE exposed, using a random split. (4) <strong>Matched market testing:</strong> Pair similar markets, expose one to the campaign, measure lift.</p><p>For digital channels: Facebook and Google offer built-in lift studies. For email: randomized holdout group (10% don't receive the email) — compare purchase rate of recipients vs holdout. This is a sophisticated question that shows strategic thinking beyond tool usage.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">9. A new SPA website is being built. How do you design the analytics architecture?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) <strong>DataLayer design:</strong> Define a dataLayer contract with developers. Standardize events for virtual page views, user interactions, and ecommerce. Use <code>dataLayer.push({ event: 'virtual_page_view', page_path: '/new-route', page_title: 'New Route' })</code> on every route change. (2) <strong>GTM setup:</strong> Custom Event trigger for <code>virtual_page_view</code>. History Change trigger as backup. (3) <strong>GA4:</strong> Send page_view event on each virtual navigation. Pass page_location and page_title from dataLayer. (4) <strong>Adobe Target:</strong> Use <code>triggerView('viewName')</code> on route changes for SPA personalization. (5) <strong>Adobe Analytics:</strong> Web SDK <code>sendEvent</code> on each route change with XDM web.webPageDetails.name. (6) <strong>Testing:</strong> Verify in GTM Preview + GA4 DebugView that every route change fires a page_view with correct page path. Check that previous page data doesn't persist incorrectly.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">10. Client asks: "Should we use Google Analytics or Adobe Analytics?" How do you advise?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Decision factors: (1) <strong>Budget:</strong> GA4 free is excellent for most companies. AA starts at ₹20L+/year. If budget is a constraint → GA4. (2) <strong>Complexity:</strong> AA handles complex implementations (hundreds of custom variables, merchandising eVars, advanced segmentation) better. GA4 is simpler but has lower limits. (3) <strong>Ecosystem:</strong> If you're deep in Google (Ads, BigQuery, Cloud) → GA4. If you use Adobe Experience Cloud (Target, Campaign, AEM, RTCDP) → AA for native integration. (4) <strong>Data sovereignty:</strong> Some enterprises require specific data residency — check both tools' data processing locations. (5) <strong>Team skills:</strong> If the team knows SQL → GA4 + BigQuery is very powerful. If the team is non-technical → AA Workspace may be easier. (6) <strong>Scale:</strong> Very high-traffic sites (1B+ hits/month) → AA or GA4 360. Both handle scale, but GA4 free has daily collection limits.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">11. How would you create a single view of the customer across online and offline touchpoints?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>This is an RTCDP-centric answer: (1) <strong>Online data:</strong> Web analytics (GA4/AA via Web SDK), app analytics (Firebase/AEP Mobile SDK), email interactions (Marketo/Campaign connector). (2) <strong>Offline data:</strong> POS/in-store purchases (batch upload via S3 → AEP source), call center interactions (CRM sync), loyalty card data. (3) <strong>Identity key:</strong> Use a persistent identifier — loyalty ID, email, or phone number. Map all identifiers to AEP identity namespaces. (4) <strong>Unification in RTCDP:</strong> Identity Service links online IDs (ECID, GA client_id) to offline IDs (loyalty_id, email) via login events and CRM matching. (5) <strong>Unified profile:</strong> Real-Time Customer Profile shows: web browsing behavior + in-store purchases + email engagement + app usage for one person. (6) <strong>Activation:</strong> Segment "high-value in-store customers who haven't shopped online" → target with app download campaign. Segment "online browsers who visited store" → send personalized email with related products.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">12. How do you handle tracking in a cookieless future?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Multi-pronged strategy: (1) <strong>First-party data:</strong> Encourage login/registration for persistent first-party IDs. Loyalty programs, gated content, wish lists. (2) <strong>Server-side tracking:</strong> sGTM sets first-party cookies from your domain — longer-lasting than client-side cookies. (3) <strong>Consent Mode + modeling:</strong> GA4's behavioral modeling fills gaps from non-consented users. (4) <strong>CDPs:</strong> RTCDP uses first-party data for audience building — not dependent on 3rd-party cookies. (5) <strong>Google Privacy Sandbox:</strong> Topics API (interest-based targeting without individual tracking), Attribution Reporting API (conversion measurement without cross-site tracking). (6) <strong>Contextual targeting:</strong> Target based on page content rather than user behavior. (7) <strong>Data clean rooms:</strong> Collaborate with publishers/platforms using aggregated, anonymized data. (8) <strong>Probabilistic models:</strong> ML-based attribution and audience expansion using first-party signals.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">13. Walk me through an analytics QA process for a new implementation.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) <strong>Pre-deployment:</strong> Review SDR/measurement plan against implemented code. Check dataLayer pushes against specification. (2) <strong>Tag verification:</strong> Use GTM Preview, Charles Proxy, or Adobe Debugger to verify every tag fires correctly on every page/interaction. (3) <strong>Data validation:</strong> Compare data in GTM Preview vs what appears in GA4 DebugView / AA Real-time reports. Check variable values match expected. (4) <strong>Functional testing:</strong> Test every tracked interaction — page views, clicks, form submissions, ecommerce events. Test on multiple browsers (Chrome, Safari, Firefox) and devices (mobile, tablet, desktop). (5) <strong>Edge cases:</strong> Test with ad blockers, incognito mode, consent denied, slow network, back button navigation, SPA route changes. (6) <strong>Data comparison:</strong> After 48 hours of live data, compare against a known baseline or against a parallel tracking setup. (7) <strong>Documentation:</strong> Create a QA checklist and sign-off document.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">14. How do you present analytics insights to non-technical stakeholders?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) <strong>Start with the business question</strong>, not the tool or methodology. "You asked which campaign drove the most revenue — here's what I found." (2) <strong>Lead with the answer</strong>, then supporting data. Don't make them wait through methodology to get the punchline. (3) <strong>Use simple language</strong> — "visits" not "sessions", "people" not "unique visitors", "money spent" not "ad spend allocation." (4) <strong>Visualize</strong> — one chart is worth 100 numbers. Use Looker Studio dashboards, not spreadsheets. (5) <strong>Compare to benchmarks</strong> — "our conversion rate is 2.5%, which is above the industry average of 1.8%." (6) <strong>End with recommendations</strong> — "Based on this, I recommend we shift 20% of budget from Display to Search, which should increase revenue by approximately X." Data without recommendation is just a report; data with recommendation is insights.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-expert">Expert</span><span class="qa-q">15. A client's ecommerce revenue in GA4 is 30% lower than their backend. Why?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>This is a very common real-world problem. Causes: (1) <strong>Tracking code not firing:</strong> If the purchase tag is on the thank-you page and users redirect or close the browser before it loads, the event doesn't fire. Payment gateway redirects are a top culprit. (2) <strong>Ad blockers:</strong> ~15-25% of users block GA4. Those purchases exist in backend but not in GA4. (3) <strong>Duplicate transactions:</strong> Backend may count order modifications or partial payments differently. (4) <strong>Cross-device:</strong> User researches on mobile, purchases on desktop. GA4 may not link these without User-ID. (5) <strong>Currency differences:</strong> GA4 might be tracking INR while backend reports in USD. (6) <strong>Returns/cancellations:</strong> GA4 captures at point of purchase; backend reflects post-return revenue. (7) <strong>Phone/offline orders:</strong> Not tracked by GA4.</p><p>Solution: Implement server-side purchase tracking (Measurement Protocol or server-side GTM) to capture purchases reliably regardless of client-side issues. Accept a 10-20% variance as normal and document the reasons.</p></div>
+    </div>
+  </div>
+
+  <!-- ========================= BEHAVIORAL ========================= -->
+  <div class="section" id="sec-behavioral">
+    <div class="section-header">
+      <span class="section-tag tag-scenario">Behavioral / Consulting</span>
+      <h2>Behavioral & Consulting Questions — 10 Questions</h2>
+      <p>These are asked in most Indian analytics interviews, especially at consulting firms.</p>
+    </div>
+    <button class="expand-all" onclick="toggleSection(this)">Expand / Collapse All</button>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">1. Tell me about a time you used data to influence a business decision.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Use the STAR framework: <strong>Situation:</strong> "Our client's mobile conversion rate was 40% lower than desktop, but 60% of traffic was mobile." <strong>Task:</strong> "I was asked to investigate and recommend improvements." <strong>Action:</strong> "I built a device-segmented funnel in Analysis Workspace, identified the checkout page had a 70% drop-off on mobile due to a form UX issue. I created a heatmap analysis showing users couldn't see the CTA below the fold on smaller screens. Presented findings to the product team with specific wireframe suggestions." <strong>Result:</strong> "They redesigned the mobile checkout. Mobile conversion rate improved by 35% in 6 weeks, adding ₹12L/month in revenue."</p><p>Always quantify the result. Even if you don't have exact numbers, estimate them. Indian interviewers value business impact over technical detail.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">2. How do you prioritize when multiple stakeholders need analytics support?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Framework: (1) <strong>Impact:</strong> Which request drives the most business value? A revenue optimization analysis trumps a curiosity report. (2) <strong>Urgency:</strong> Is there a deadline? Campaign launch next week needs priority over a quarterly review. (3) <strong>Effort:</strong> Quick wins first — if I can answer one request in 30 minutes and another takes 3 days, do the quick one first. (4) <strong>Communication:</strong> Set expectations with all stakeholders — "I'll have your report by Thursday. Is there a specific question I can answer quickly in the meantime?" (5) <strong>Self-serve:</strong> Build Looker Studio dashboards so stakeholders can answer their own basic questions, freeing me for complex analysis.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">3. Why do you want to move to this role / company?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Structure: (1) What excites you about the <em>role</em> (not just the company). "I want to move deeper into analytics consulting where I can solve diverse business problems, not just maintain tracking." (2) What excites you about the <em>company</em>. Do research — mention a specific client, project, or company initiative. "I saw your work with [client] on their Adobe implementation — that scale of work is exactly what I want to grow into." (3) Your growth plan. "I see this role as a step toward becoming a solutions architect in 3–5 years." Be genuine. Don't say "better salary" — even if true, frame it as "a role that matches my growing skillset."</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">4. Describe a challenging implementation problem you solved.</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Example answer: "We were implementing GA4 ecommerce tracking on a Shopify Plus site with a custom checkout. The challenge was that the checkout was on a different subdomain and the purchase confirmation page loaded asynchronously, causing the purchase event to not fire reliably. I solved it by implementing server-side tracking using GTM server-side container — the purchase event was sent from the backend when the order was confirmed, guaranteeing 100% capture. This increased tracked revenue by 22% compared to our previous client-side only approach."</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">5. How do you stay updated in the analytics field?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Mention specific sources: (1) <strong>Blogs:</strong> Simo Ahava's blog (GTM/GA4 technical deep dives), Measure School (YouTube tutorials), Analytics Mania, CXL blog. (2) <strong>Communities:</strong> Measure Slack, #measure on Twitter/X, Analytics India LinkedIn groups, Reddit r/analytics. (3) <strong>Adobe specific:</strong> Adobe Experience League, Adobe Summit recordings. (4) <strong>Google specific:</strong> Google Analytics blog, Think with Google, Google Skillshop. (5) <strong>Certifications:</strong> Continuously pursuing certifications. (6) <strong>Practice:</strong> Personal projects — "I maintain a GA4 property for my personal blog where I test new features and implementations."</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">6. A client disagrees with your analytics recommendation. How do you handle it?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) <strong>Listen first:</strong> Understand their objection — is it about the data, the methodology, or the recommendation itself? (2) <strong>Acknowledge their perspective:</strong> "I understand your concern about reallocating budget from Display — it's been a core channel for you." (3) <strong>Reframe with data:</strong> Show the analysis that led to your recommendation. Use visualizations, not just numbers. (4) <strong>Offer compromise:</strong> "Instead of a full reallocation, let's run a 4-week test with 20% of Display budget shifted to Paid Social and measure the impact." (5) <strong>Respect their decision:</strong> Ultimately, it's their business. Document your recommendation and the outcome of their decision. If they were right, learn from it. If the data confirmed your recommendation, reference it constructively next time.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-easy">Easy</span><span class="qa-q">7. What's your experience with project management and client communication?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Key points to cover: (1) Tools you've used (Jira, Confluence, Asana, Monday.com). (2) Communication cadence — "I set up weekly status calls with clients, shared a Looker Studio dashboard they could check anytime for real-time KPIs, and sent monthly insight reports." (3) Documentation — "I maintained an SDR, QA checklist, and change log for every implementation." (4) Stakeholder management — "I translated technical analytics jargon into business terms for marketing managers and C-suite."</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">8. Where do you see yourself in 3–5 years?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Show ambition aligned with the career path: "In 3 years, I want to be a senior analytics consultant or team lead, managing complex multi-tool implementations for enterprise clients. In 5 years, I aim to be a solutions architect or analytics practice lead — designing analytics strategies, not just executing them. I'm investing in certifications (Adobe Certified Expert, GCP Professional) and deepening my SQL and data engineering skills to support that trajectory."</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-hard">Hard</span><span class="qa-q">9. How would you handle a situation where the data shows something the client doesn't want to hear?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>(1) Lead with empathy, not data: "I understand this isn't the result we were hoping for from the campaign." (2) Present the data objectively — let the numbers speak. (3) Provide context — "While overall conversion dropped, the campaign drove a 25% increase in brand awareness, which will have downstream effects we'll measure in the next quarter." (4) Focus on actionable next steps — "Here's what I recommend we change for the next iteration." (5) Never hide or spin bad data. Trust is built on honest analysis. Clients respect analysts who tell the truth with solutions, not just problems.</p></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="qa-header"><span class="qa-diff diff-medium">Medium</span><span class="qa-q">10. What's your salary expectation?</span><span class="qa-toggle">+</span></div>
+      <div class="qa-answer"><p>Framework for negotiation: (1) Research the market rate on Glassdoor, Ambition Box, and LinkedIn for the exact role and location. For a 2–4 year analytics consultant in Mumbai: ₹8–14 LPA depending on company. (2) State a range, not a number: "Based on my research and my dual-stack expertise in both Adobe and Google, I'm looking for ₹10–12 LPA." (3) Justify: "My combination of Adobe Analytics, Target, GA4, GTM, and BigQuery is uncommon at my experience level, and I bring immediate value." (4) Be flexible: "I'm open to discussing the total package including variable pay and benefits." (5) Never state your current CTC first. If pressed: "My current package is ₹5.5 LPA, and I'm seeking a correction to market rate."</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>150+ Interview Questions & Model Answers — Digital Analytics & MarTech<br>
+  Created July 2026 • Use with the Study Material and Test Series for complete preparation</p>
+</div>
+
+<script>
+  function toggleSection(btn) {
+    const section = btn.closest('.section');
+    const qas = section.querySelectorAll('.qa');
+    const allOpen = Array.from(qas).every(qa => qa.classList.contains('open'));
+    qas.forEach(qa => {
+      if (allOpen) qa.classList.remove('open');
+      else qa.classList.add('open');
+    });
+  }
+</script>
+
+</body>
+</html>
